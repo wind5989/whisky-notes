@@ -1,10 +1,10 @@
 <!doctype html>
-<!-- Whisky Notes v3.21 -->
+<!-- Whisky Notes v3.22 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Whisky Notes v3.21</title>
+<title>Whisky Notes v3.22</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f1e6d2;--panel:#fbf6ea;--line:#dcc9aa;--ink:#3b2417;--mute:#5e4a37;--brown:#7a3d1c;--amber:#e3a03a;--cream:#f7eddb;--r:12px}
@@ -423,7 +423,6 @@ span.heart{display:inline-block;text-align:center;line-height:44px;pointer-event
 .home2-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:10px;min-height:310px;padding:20px 17px;margin:0 0 15px;border:1px solid #d5b990;border-radius:18px;background:radial-gradient(ellipse at 28% 42%,rgba(224,181,115,.24),transparent 48%),linear-gradient(140deg,#f9f0df,#ecddc3);box-shadow:0 4px 12px rgba(79,48,25,.08);overflow:hidden}
 .home2-art-wrap{position:relative;display:flex;min-width:0;flex-direction:column;align-items:center;justify-content:center;align-self:stretch;padding:6px 0 0}
 .home2-glencairn{display:block;width:min(100%,235px);max-height:285px;filter:drop-shadow(0 8px 7px rgba(77,48,26,.13))}
-.home2-art-caption{margin-top:-2px;color:#957451;font-size:9px;font-weight:700;letter-spacing:.18em}
 .home2-intro{padding:8px 7px 8px 15px;border-left:1px solid rgba(138,102,72,.27)}
 .home2-overline{font-size:10px;line-height:1.4;letter-spacing:.14em;font-weight:700;color:#8d6b4c}
 .home2-intro h2{font-size:clamp(24px,5.5vw,34px);line-height:1.08;margin:10px 0 12px;color:#593a26}
@@ -613,7 +612,7 @@ if (LOCAL) {
 /* ---------- State and helpers ---------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const VERSION = "3.21";
+const VERSION = "3.22";
 let gTab = "cat", gSel = null, gDet = null, cA = "", cB = "";
 let notes = [], cat = "All", q = "", view = "home", draft = null, pending = null, pendingLabel = null, savedLabelPhoto = null, labelRemoved = false, labelOcrStatus = "", labelOcrBusy = false, editing = false, step = 0;
 let tesseractLoadPromise = null, labelScanToken = 0;
@@ -651,20 +650,25 @@ const home = () => `<div class="cover"><div class="cin">
    The Glencairn glass is inline SVG so it remains crisp at every screen size. */
 const GLENCAIRN_HOME_ART = `<svg class="home2-glencairn" viewBox="0 0 240 430" role="img" aria-label="Illustration of a Glencairn whisky tasting glass">
   <defs>
-    <linearGradient id="home2Whisky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e7b65f" stop-opacity=".55"/><stop offset="1" stop-color="#a85b20" stop-opacity=".86"/></linearGradient>
-    <linearGradient id="home2Glass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".52"/><stop offset=".22" stop-color="#fff" stop-opacity=".06"/><stop offset=".78" stop-color="#fff" stop-opacity=".04"/><stop offset="1" stop-color="#fff" stop-opacity=".44"/></linearGradient>
+    <linearGradient id="home2Whisky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e7b65f" stop-opacity=".58"/><stop offset="1" stop-color="#a85b20" stop-opacity=".86"/></linearGradient>
+    <linearGradient id="home2Glass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".42"/><stop offset=".2" stop-color="#fff" stop-opacity=".08"/><stop offset=".78" stop-color="#fff" stop-opacity=".03"/><stop offset="1" stop-color="#fff" stop-opacity=".36"/></linearGradient>
+    <clipPath id="home2BowlClip"><path d="M83 21 C83 70 69 111 53 154 C39 192 30 225 39 256 C46 282 68 302 96 316 C105 321 109 330 109 341 L109 369 C109 380 89 385 61 390 Q51 392 51 402 L51 410 H189 L189 402 Q189 392 179 390 C151 385 131 380 131 369 L131 341 C131 330 135 321 144 316 C172 302 194 282 201 256 C210 225 201 192 187 154 C171 111 157 70 157 21 Z"/></clipPath>
   </defs>
-  <ellipse cx="120" cy="407" rx="78" ry="9" fill="#76513a" opacity=".16"/>
-  <path d="M79 20 C80 68 88 103 105 137 C126 179 163 210 166 251 C169 282 148 301 123 312 C114 316 111 326 111 339 L111 365 C111 376 123 381 145 384 L181 390 Q190 392 190 402 L190 410 L50 410 L50 402 Q50 392 59 390 L95 384 C117 381 129 376 129 365 L129 339 C129 326 126 316 117 312 C92 301 71 282 74 251 C77 210 114 179 135 137 C152 103 160 68 161 20 Z" fill="url(#home2Glass)" stroke="#81583a" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M80 21 C82 69 91 106 108 138 C128 178 157 209 160 250 C162 276 144 293 121 304 C111 309 105 319 105 339 L105 366 C105 381 91 386 61 391" fill="none" stroke="#fff8e9" stroke-width="5" stroke-linecap="round" opacity=".76"/>
-  <path d="M160 21 C158 69 149 106 132 138 C112 178 83 209 80 250 C78 276 96 293 119 304" fill="none" stroke="#9d704c" stroke-width="2" opacity=".85"/>
-  <path d="M78 235 C95 226 145 226 162 235 L160 252 C157 274 140 289 120 299 C100 289 83 274 80 252 Z" fill="url(#home2Whisky)" opacity=".92"/>
-  <path d="M79 235 C101 226 139 226 161 235" fill="none" stroke="#bd7b35" stroke-width="3" stroke-linecap="round"/>
-  <path d="M91 244 C106 238 134 238 149 244" fill="none" stroke="#f7d48d" stroke-width="2" stroke-linecap="round" opacity=".62"/>
-  <path d="M61 394 Q120 402 179 394" fill="none" stroke="#81583a" stroke-width="2"/>
-  <path d="M63 401 H177" stroke="#fff8e9" stroke-width="2" opacity=".75"/>
-  <path d="M94 42 C96 90 105 114 119 139" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".65"/>
-  <path d="M148 48 C145 89 139 111 127 134" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" opacity=".38"/>
+  <ellipse cx="120" cy="414" rx="78" ry="8" fill="#76513a" opacity=".13"/>
+  <!-- One continuous bowl: narrow rim, broad rounded body, then a short stem and foot. -->
+  <path d="M83 21 C83 70 69 111 53 154 C39 192 30 225 39 256 C46 282 68 302 96 316 C105 321 109 330 109 341 L109 369 C109 380 89 385 61 390 Q51 392 51 402 L51 410 H189 L189 402 Q189 392 179 390 C151 385 131 380 131 369 L131 341 C131 330 135 321 144 316 C172 302 194 282 201 256 C210 225 201 192 187 154 C171 111 157 70 157 21 Z" fill="url(#home2Glass)" stroke="#81583a" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Whisky sits in the lower part of the rounded bowl. -->
+  <path d="M39 232 Q120 219 201 232 C198 267 174 295 145 310 Q120 323 95 310 C66 295 42 267 39 232 Z" fill="url(#home2Whisky)" clip-path="url(#home2BowlClip)"/>
+  <path d="M40 232 Q120 219 200 232" fill="none" stroke="#bd7b35" stroke-width="3" stroke-linecap="round"/>
+  <path d="M56 241 Q120 231 184 241" fill="none" stroke="#f7d48d" stroke-width="2" stroke-linecap="round" opacity=".58"/>
+  <!-- Reflections follow the bowl instead of crossing through its centre. -->
+  <path d="M91 39 C90 84 72 129 57 174 C48 203 47 235 59 259 C67 276 82 290 101 301" fill="none" stroke="#fff8e9" stroke-width="5" stroke-linecap="round" opacity=".72"/>
+  <path d="M151 43 C153 86 168 130 183 174 C195 211 196 237 185 261" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".38"/>
+  <path d="M108 337 C108 326 112 321 120 319 C128 321 132 326 132 337" fill="none" stroke="#9d704c" stroke-width="2" opacity=".75"/>
+  <path d="M61 396 Q120 404 179 396" fill="none" stroke="#81583a" stroke-width="2"/>
+  <path d="M64 403 H176" stroke="#fff8e9" stroke-width="2" opacity=".68"/>
+  <path d="M83 20 Q120 23 157 20" fill="none" stroke="#81583a" stroke-width="3" stroke-linecap="round"/>
+  <path d="M87 25 Q120 28 153 25" fill="none" stroke="#fff8e9" stroke-width="1.5" stroke-linecap="round" opacity=".72"/>
 </svg>`;
 
 const home2 = () => `<section class="home2-page">
@@ -675,7 +679,7 @@ const home2 = () => `<section class="home2-page">
     <div class="home2-rule"><span></span><small>EXPLORE · TASTE · RECORD</small><span></span></div>
   </header>
   <section class="home2-hero" aria-label="Whisky Notes introduction">
-    <div class="home2-art-wrap">${GLENCAIRN_HOME_ART}<span class="home2-art-caption">THE TASTING GLASS</span></div>
+    <div class="home2-art-wrap">${GLENCAIRN_HOME_ART}</div>
     <div class="home2-intro">
       <span class="home2-overline">YOUR PERSONAL WHISKY JOURNAL</span>
       <h2>Take a closer look.</h2>
