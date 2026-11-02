@@ -1,10 +1,10 @@
 <!doctype html>
-<!-- Whisky Notes v3.22 -->
+<!-- Whisky Notes v3.23 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Whisky Notes v3.22</title>
+<title>Whisky Notes v3.23</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f1e6d2;--panel:#fbf6ea;--line:#dcc9aa;--ink:#3b2417;--mute:#5e4a37;--brown:#7a3d1c;--amber:#e3a03a;--cream:#f7eddb;--r:12px}
@@ -24,6 +24,13 @@ button{cursor:pointer}
 .btn.ghost{background:none;color:var(--ink);border:1px solid var(--line)}
 .btn.danger{background:none;color:#a2392b;border:1px solid #d9a79c}
 .cover{container-type:inline-size;position:relative;margin:0 auto;aspect-ratio:2/3;width:min(100%,calc((100vh - 106px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) * .6667));width:min(100%,calc((100dvh - 106px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) * .6667));background:#2a1810 url(img/cover.webp) center/100% 100% no-repeat;border-radius:12px;box-shadow:0 6px 18px rgba(40,20,8,.35)}
+.home-design-toggle{position:absolute;top:10px;right:10px;z-index:3;display:inline-flex;align-items:center;gap:6px;min-height:35px;padding:6px 10px;border-radius:99px;font:600 11px/1 Figtree,system-ui,sans-serif;letter-spacing:.02em;box-shadow:0 2px 6px rgba(30,18,9,.12)}
+.home-design-toggle--one{background:rgba(35,20,12,.82);border:1px solid rgba(224,190,130,.62);color:#efd49f}
+.home-design-toggle--two{background:rgba(251,244,230,.94);border:1px solid #c7a77f;color:#69472d}
+.home-design-toggle:active{transform:translateY(1px)}
+.home2-page{position:relative;padding-top:5px}
+.home2-page .home-design-toggle{top:8px;right:7px}
+@media(max-width:380px){.home-design-toggle{top:7px;right:7px;min-height:32px;padding:6px 8px;font-size:10px}}
 .cin{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:11cqw 10cqw 8cqw}
 .ttl{text-align:center}.ttl h1{font-size:13.5cqw;line-height:1.05;color:#d9ab5e;text-shadow:0 -1px 1px rgba(0,0,0,.75),0 1px 1px rgba(255,225,170,.28)}
 .ttl small{display:block;color:#b99560;font-size:max(11px,3.2cqw);margin-top:1cqw}.ttl p{margin:3cqw 0 0;color:#cdb08a;font-size:max(13px,4cqw);text-shadow:0 -1px 0 rgba(0,0,0,.6)}
@@ -612,9 +619,9 @@ if (LOCAL) {
 /* ---------- State and helpers ---------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const VERSION = "3.22";
+const VERSION = "3.23";
 let gTab = "cat", gSel = null, gDet = null, cA = "", cB = "";
-let notes = [], cat = "All", q = "", view = "home", draft = null, pending = null, pendingLabel = null, savedLabelPhoto = null, labelRemoved = false, labelOcrStatus = "", labelOcrBusy = false, editing = false, step = 0;
+let notes = [], cat = "All", q = "", view = "home", homeDesign = "home2", draft = null, pending = null, pendingLabel = null, savedLabelPhoto = null, labelRemoved = false, labelOcrStatus = "", labelOcrBusy = false, editing = false, step = 0;
 let tesseractLoadPromise = null, labelScanToken = 0;
 const manualBottleFields = new Set();
 let guideOn = false, guideSection = "nose", guideCategory = null, guideDescriptor = null;
@@ -636,7 +643,7 @@ async function shrink(file, max, q) {
 }
 
 /* ---------- Pages ---------- */
-const home = () => `<div class="cover"><div class="cin">
+const home = () => `<div class="cover"><button class="home-design-toggle home-design-toggle--one" data-a="toggleHome" aria-label="Switch to Home 2" title="Switch to Home 2">⇄ Home 2</button><div class="cin">
   <div class="ttl"><h1>Whisky Notes</h1><small>v${VERSION}</small><p>Explore · Taste · Record</p></div>
   <div>
   <button class="lb big" data-a="new">+ New Tasting</button>
@@ -672,6 +679,7 @@ const GLENCAIRN_HOME_ART = `<svg class="home2-glencairn" viewBox="0 0 240 430" r
 </svg>`;
 
 const home2 = () => `<section class="home2-page">
+  <button class="home-design-toggle home-design-toggle--two" data-a="toggleHome" aria-label="Switch to Home 1" title="Switch to Home 1">⇄ Home 1</button>
   <header class="home2-header">
     <span class="home2-kicker">HOME 2 · ALTERNATE DESIGN</span>
     <h1>Whisky Notes</h1>
@@ -1007,7 +1015,7 @@ function noteView() {
 
 function render() {
   const page = $("#page");
-  page.innerHTML = ({ home, home2, coll, learn, cmp, note: noteView })[view]();
+  page.innerHTML = view === "home" ? (homeDesign === "home1" ? home() : home2()) : ({ coll, learn, cmp, note: noteView })[view]();
   ["learning-view", "collection-view", "tasting-view", "compare-view"].forEach(c => page.classList.remove(c));
   page.classList.toggle("learning-view", view === "learn");
   page.classList.toggle("collection-view", view === "coll");
@@ -1363,6 +1371,7 @@ function onClick(e) {
   if (v) { if (editing && !confirm("Discard unsaved changes?")) return; guideOn = false; editing = false; view = v.dataset.v; if (view !== "note") draft = null; if (view === "learn") { learnSection = "hub"; flavourCategory = null; flavourDescriptor = null; learnRegion = null; openLearnItems.clear(); } render(); return; }
   const sp = t.closest("[data-step]"); if (sp) { step = +sp.dataset.step; render(); return; }
   const a = t.closest("[data-a]")?.dataset.a;
+  if (a === "toggleHome") { homeDesign = homeDesign === "home2" ? "home1" : "home2"; view = "home"; render(); return; }
   if (a === "scanLabel") { $("#labelFile")?.click(); return; }
   if (a === "clearLabel") {
     pendingLabel = null; savedLabelPhoto = null; labelRemoved = true; labelOcrStatus = "Label photograph removed. The full bottle photo is unchanged.";
@@ -1429,11 +1438,11 @@ $("#root").addEventListener("change", onInput);
 // Native buttons and controls provide keyboard interaction for the guided flavour library.
 
 function start() {
-  view = "home"; draft = null; editing = false;
-  $("#root").innerHTML = `<main class="page" id="page"></main><nav class="bar" aria-label="Main navigation">${[["home", "Home 1"], ["home2", "Home 2"], ["coll", "Tastings"], ["learn", "Learn"], ["cmp", "Compare"]].map(([v, l]) => `<button data-v="${v}">${l}</button>`).join("")}</nav><div class="ov" id="guideov" hidden></div>`;
+  view = "home"; homeDesign = "home2"; draft = null; editing = false;
+  $("#root").innerHTML = `<main class="page" id="page"></main><nav class="bar" aria-label="Main navigation">${[["home", "Home"], ["coll", "Tastings"], ["learn", "Learn"], ["cmp", "Compare"]].map(([v, l]) => `<button data-v="${v}">${l}</button>`).join("")}</nav><div class="ov" id="guideov" hidden></div>`;
   render();
   unsub?.();
-  unsub = store.listen(list => { notes = list; if (view === "coll") renderList(); else if (view === "home" || view === "home2" || view === "cmp") render(); });
+  unsub = store.listen(list => { notes = list; if (view === "coll") renderList(); else if (view === "home" || view === "cmp") render(); });
 }
 
 /* ---------- Boot ---------- */
