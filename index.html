@@ -1,10 +1,10 @@
 <!doctype html>
-<!-- Whisky Notes v3.23 -->
+<!-- Whisky Notes v3.25 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Whisky Notes v3.23</title>
+<title>Whisky Notes v3.25</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f1e6d2;--panel:#fbf6ea;--line:#dcc9aa;--ink:#3b2417;--mute:#5e4a37;--brown:#7a3d1c;--amber:#e3a03a;--cream:#f7eddb;--r:12px}
@@ -293,25 +293,28 @@ span.heart{display:inline-block;text-align:center;line-height:44px;pointer-event
 .entry-panel-head p{margin:0;color:var(--mute);font-size:13px;line-height:1.45}
 .bottle-entry-grid{grid-template-columns:132px minmax(0,1fr);gap:13px;margin:0}
 
-.label-scan-card{background:#f1e7d6;border:1px solid #d9c6a8;border-radius:12px;padding:12px;margin:13px 0 0}
-.label-scan-head b{display:block;font:600 17px Fraunces,Georgia,serif;color:#5f3d26}
-.label-scan-head p{font-size:12px;line-height:1.45;color:var(--mute);margin:4px 0 10px}
-.label-scan-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.label-scan-actions .btn{min-height:42px;padding:9px 12px;font-size:13px}
-.label-scan-status{color:#765b40;font-size:12px;line-height:1.4;margin:9px 0 0;min-height:1.2em}
-.label-scan-preview{display:flex;align-items:center;gap:10px;margin:10px 0 0;padding:8px;background:#fbf6ea;border:1px solid #dfceb2;border-radius:10px}
-.label-scan-preview[hidden]{display:none}
-.label-scan-preview img{width:78px;height:96px;object-fit:contain;background:#eee3d0;border-radius:6px;flex:none}
-.label-scan-preview span{font-size:12px;color:var(--mute)}
-.label-ocr-text{margin:10px 0 0;border-top:1px solid #dfceb2;padding-top:9px}
-.label-ocr-text summary{cursor:pointer;color:#80502f;font-size:13px;font-weight:600;min-height:30px;display:flex;align-items:center}
-.label-ocr-text .fld{margin:8px 0 0}
-.label-ocr-text textarea{min-height:120px;font-size:14px;line-height:1.45}
-.label-ocr-read{margin:12px 0 0;padding:10px;background:#f1e7d6;border:1px solid #d9c6a8;border-radius:10px}
-.label-ocr-read summary{cursor:pointer;color:#80502f;font-size:13px;font-weight:600}
-.label-ocr-read pre{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.45 Figtree,system-ui,sans-serif;color:var(--ink);margin:8px 0 0}
 .tasting-view .photo{min-height:172px;background:#f1e6d2;border-color:#cdb99a;color:#805b3a;font-size:13px;line-height:1.35}
 .tasting-view .photo img{object-fit:contain;background:#eee3d0}
+
+/* v3.25 — quick bottle-photo cropper */
+.photo-crop-modal{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:calc(12px + env(safe-area-inset-top)) 14px calc(12px + env(safe-area-inset-bottom));background:rgba(31,20,13,.82);}
+.photo-crop-dialog{width:min(100%,440px);max-height:100%;overflow:auto;background:var(--panel);border:1px solid #d7c3a3;border-radius:18px;padding:16px;box-shadow:0 16px 48px rgba(0,0,0,.35);}
+.photo-crop-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:5px;}
+.photo-crop-head h3{margin:0;font-size:23px;color:#593a26;}
+.photo-crop-head .btn{min-height:38px;padding:7px 12px;}
+.photo-crop-help{font-size:13px;line-height:1.4;color:var(--mute);margin:4px 0 10px;}
+.photo-crop-stage{position:relative;width:min(100%,340px,41.25dvh);aspect-ratio:3/4;margin:0 auto 13px;overflow:hidden;border:2px solid #f9efdd;border-radius:10px;background:#281b12;box-shadow:0 2px 9px rgba(44,27,14,.2);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;}
+.photo-crop-stage:active{cursor:grabbing;}
+.photo-crop-stage canvas{position:absolute;left:0;top:0;max-width:none;max-height:none;pointer-events:none;}
+.photo-crop-frame{position:absolute;inset:0;border:1px solid rgba(255,246,226,.68);box-shadow:inset 0 0 0 1px rgba(60,35,17,.18);pointer-events:none;}
+.photo-crop-controls{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;margin:7px 0 13px;}
+.photo-crop-zoom{display:flex;align-items:center;gap:10px;min-width:0;color:#765b40;font-size:13px;font-weight:600;}
+.photo-crop-zoom input{width:100%;min-width:60px;accent-color:#76502f;}
+.photo-crop-controls .btn{min-height:39px;padding:8px 12px;font-size:13px;}
+.photo-crop-actions{display:flex;gap:9px;margin-top:8px;}
+.photo-crop-actions .btn{flex:1;min-height:46px;}
+.photo-crop-note{font-size:11px;color:#806348;text-align:center;margin:9px 0 0;}
+@media(max-height:650px){.photo-crop-dialog{padding:12px}.photo-crop-stage{width:min(100%,300px,37.5dvh);}.photo-crop-head h3{font-size:20px;}}
 .tasting-view .bottle-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .tasting-view .fld{color:#765b40;font-size:13px;font-weight:600;margin:0 0 11px}
 .tasting-view .fld input,.tasting-view .fld select,.tasting-view .fld textarea{margin-top:5px;background:#fffaf1;border-color:#d7c3a3;border-radius:9px;padding:11px 10px;font-size:16px;font-weight:400;min-width:0}
@@ -574,11 +577,9 @@ let store, auth, fb, unsub;
 if (LOCAL) {
   store = {
     listen(cb) { this.cb = cb; cb(Object.values(ls("dn_notes"))); },
-    async save(n, photo, labelPhoto, removeLabelPhoto = false) {
+    async save(n, photo) {
       const a = ls("dn_notes"); a[n.id] = n; localStorage.setItem("dn_notes", JSON.stringify(a));
       if (photo) { const p = ls("dn_photos"); p[n.id] = photo; localStorage.setItem("dn_photos", JSON.stringify(p)); }
-      if (labelPhoto) { const p = ls("dn_label_photos"); p[n.id] = labelPhoto; localStorage.setItem("dn_label_photos", JSON.stringify(p)); }
-      if (removeLabelPhoto) { const p = ls("dn_label_photos"); delete p[n.id]; localStorage.setItem("dn_label_photos", JSON.stringify(p)); }
       this.cb(Object.values(a));
     },
     async del(id) {
@@ -586,8 +587,7 @@ if (LOCAL) {
       const p = ls("dn_label_photos"); delete p[id]; localStorage.setItem("dn_label_photos", JSON.stringify(p));
       this.cb(Object.values(a));
     },
-    async photo(id) { return ls("dn_photos")[id] || null; },
-    async labelPhoto(id) { return ls("dn_label_photos")[id] || null; }
+    async photo(id) { return ls("dn_photos")[id] || null; }
   };
 } else {
   const V = "10.12.2", B = "https://www.gstatic.com/firebasejs/" + V + "/";
@@ -600,47 +600,35 @@ if (LOCAL) {
   // Writes are not awaited: offline, the promise only resolves once the server confirms.
   store = {
     listen(cb) { return fs.onSnapshot(col("notes"), s => cb(s.docs.map(d => d.data()))); },
-    async save(n, photo, labelPhoto, removeLabelPhoto = false) {
+    async save(n, photo) {
       fs.setDoc(fs.doc(col("notes"), n.id), n).catch(console.error);
       if (photo) fs.setDoc(fs.doc(col("photos"), n.id), { data: photo }).catch(console.error);
-      if (labelPhoto) fs.setDoc(fs.doc(col("labelPhotos"), n.id), { data: labelPhoto }).catch(console.error);
-      if (removeLabelPhoto) fs.deleteDoc(fs.doc(col("labelPhotos"), n.id)).catch(console.error);
     },
     async del(id) {
       fs.deleteDoc(fs.doc(col("notes"), id)).catch(console.error);
       fs.deleteDoc(fs.doc(col("photos"), id)).catch(console.error);
       fs.deleteDoc(fs.doc(col("labelPhotos"), id)).catch(console.error);
     },
-    async photo(id) { const d = await fs.getDoc(fs.doc(col("photos"), id)); return d.exists() ? d.data().data : null; },
-    async labelPhoto(id) { const d = await fs.getDoc(fs.doc(col("labelPhotos"), id)); return d.exists() ? d.data().data : null; }
+    async photo(id) { const d = await fs.getDoc(fs.doc(col("photos"), id)); return d.exists() ? d.data().data : null; }
   };
 }
 
 /* ---------- State and helpers ---------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const VERSION = "3.23";
+const VERSION = "3.25";
 let gTab = "cat", gSel = null, gDet = null, cA = "", cB = "";
-let notes = [], cat = "All", q = "", view = "home", homeDesign = "home2", draft = null, pending = null, pendingLabel = null, savedLabelPhoto = null, labelRemoved = false, labelOcrStatus = "", labelOcrBusy = false, editing = false, step = 0;
-let tesseractLoadPromise = null, labelScanToken = 0;
+let notes = [], cat = "All", q = "", view = "home", homeDesign = "home2", draft = null, pending = null, editing = false, step = 0;
+let photoCrop = null;
 const manualBottleFields = new Set();
 let guideOn = false, guideSection = "nose", guideCategory = null, guideDescriptor = null;
 const STEPS = ["Bottle", ...SECTIONS.map(s => s.t), "Water (optional)", "Rating"];
 const TABS = ["All", ...CATS, "Favourites"];
-const blank = () => ({ id: crypto.randomUUID(), name: "", distillery: "", category: "Scotch", type: "", region: "", age: "", noAge: false, abv: "", price: "", favourite: false, waterAmt: "", waterUnit: "tsp", tags: {}, other: {}, notes: {}, rating: 0, comments: "", thumb: "", labelText: "", updated: 0 });
+const blank = () => ({ id: crypto.randomUUID(), name: "", distillery: "", category: "Scotch", type: "", region: "", age: "", noAge: false, abv: "", price: "", favourite: false, waterAmt: "", waterUnit: "tsp", tags: {}, other: {}, notes: {}, rating: 0, comments: "", thumb: "", updated: 0 });
 const getP = (o, p) => p.split(".").reduce((a, k) => a?.[k], o);
 const setP = (o, p, v) => { const ks = p.split("."), l = ks.pop(); ks.reduce((a, k) => a[k], o)[l] = v; };
 const stars = v => `<span class="stars">${[1, 2, 3, 4, 5].map(i => `<span class="s ${v >= i ? "f" : v >= i - .5 ? "h" : ""}">★</span>`).join("")}</span>`;
 function toast(t) { const e = $("#toast"); e.textContent = t; e.classList.add("show"); setTimeout(() => e.classList.remove("show"), 1800); }
-
-async function shrink(file, max, q) {
-  const b = await createImageBitmap(file, { imageOrientation: "from-image" });
-  const s = Math.min(1, max / Math.max(b.width, b.height));
-  const c = document.createElement("canvas");
-  c.width = Math.round(b.width * s); c.height = Math.round(b.height * s);
-  c.getContext("2d").drawImage(b, 0, 0, c.width, c.height);
-  return c.toDataURL("image/jpeg", q);
-}
 
 /* ---------- Pages ---------- */
 const home = () => `<div class="cover"><button class="home-design-toggle home-design-toggle--one" data-a="toggleHome" aria-label="Switch to Home 2" title="Switch to Home 2">⇄ Home 2</button><div class="cin">
@@ -949,23 +937,14 @@ function part(i, ed) {
 
   if (i === 0) {
     const src = pending || n.thumb;
-    const ph = src ? `<img id="pimg" src="${src}" alt="Full bottle photograph">` : (ed ? "Add full bottle photo<br>(tap or drop)" : "No photo");
+    const ph = src ? `<img id="pimg" src="${src}" alt="Full bottle photograph">` : (ed ? "Add full bottle photo<br>(tap to choose and crop)" : "No photo");
     const sel = (k, l, opts, nb) => (!ed && !n[k]) ? "" : `<label class="fld">${l}<select data-f="${k}">${nb ? `<option value="">Not set</option>` : ""}${opts.map(o => `<option value="${esc(o)}" ${o === n[k] ? "selected" : ""}>${esc(o)}</option>`).join("")}</select></label>`;
-    const labelSrc = pendingLabel || savedLabelPhoto;
-    const labelPreview = labelSrc ? `<div class="label-scan-preview" id="labelPreviewWrap"><img id="labelPreview" src="${labelSrc}" alt="Photographed bottle label"><span>Separate label photograph</span></div>` : `<div class="label-scan-preview" id="labelPreviewWrap" hidden><img id="labelPreview" alt="Photographed bottle label"><span>Separate label photograph</span></div>`;
-    const labelScan = ed ? `<div class="label-scan-card">
-        <div class="label-scan-head"><b>Scan bottle label</b><p>Take a close, clear photograph of the label. OCR will suggest details for the fields above. You can review and change everything manually.</p></div>
-        <div class="label-scan-actions"><button class="btn ghost" type="button" data-a="scanLabel">${labelSrc ? "Take / choose another label" : "Take / choose label photo"}</button>${labelSrc ? `<button class="btn ghost" type="button" data-a="clearLabel">Remove label photo</button>` : ""}<input type="file" id="labelFile" accept="image/*" capture="environment" hidden></div>
-        <p class="label-scan-status" id="labelOcrStatus" role="status">${esc(labelOcrStatus || "OCR reads printed English on this device. An internet connection is needed to load the reader the first time; the label photo is stored separately from the full bottle photo.")}</p>
-        ${labelPreview}
-      </div>${n.labelText ? `<details class="label-ocr-text"><summary>Review text read from label</summary><label class="fld">Recognised label text<textarea data-f="labelText">${esc(n.labelText)}</textarea></label></details>` : labelOcrStatus && !ed ? `<details class="label-ocr-read"><summary>Text read from label</summary><pre>${esc(n.labelText || "")}</pre></details>` : ""}`
-      : `${labelSrc ? `<div class="label-scan-card"><div class="label-scan-head"><b>Reference label photograph</b></div>${labelPreview}</div>` : ""}${n.labelText ? `<details class="label-ocr-read"><summary>Text read from label</summary><pre>${esc(n.labelText)}</pre></details>` : ""}`;
-    return `<section class="entry-panel bottle-panel">${entryPanelHead("Bottle", "01 · IDENTIFY", "Use the full bottle photograph as the display image. A separate label photo can help fill in its details.")}
+    return `<section class="entry-panel bottle-panel">${entryPanelHead("Bottle", "01 · IDENTIFY", "Enter the bottle details manually. Add a full bottle photograph and crop it to frame the bottle.")}
       <div class="top bottle-entry-grid"><label class="photo" id="drop">${ph}<input type="file" id="file" accept="image/*" hidden ${ed ? "" : "disabled"}></label><div class="grid bottle-fields">
       ${fld("name", "Bottle name *")}${fld("distillery", "Distillery")}${sel("category", "Category", CATS)}${sel("type", "Style", TYPES, 1)}
       ${fld("region", "Region", "text", 'list="rg"')}<datalist id="rg">${(REGIONS[n.category] || []).map(r => `<option value="${esc(r)}">`).join("")}</datalist>
       ${fld("age", "Age (years)", "number", `inputmode="numeric" ${n.noAge ? "disabled" : ""}`)}${ed || n.noAge ? `<label class="chip no-age-chip"><input type="checkbox" data-f="noAge" ${n.noAge ? "checked" : ""}><span>No age statement</span></label>` : ""}
-      ${fld("abv", "ABV %", "number", 'inputmode="decimal" step="0.1"')}${fld("price", "Price")}</div></div>${labelScan}</section>`;
+      ${fld("abv", "ABV %", "number", 'inputmode="decimal" step="0.1"')}${fld("price", "Price")}</div></div></section>`;
   }
 
   if (i === STEPS.length - 1) {
@@ -1041,184 +1020,147 @@ function keepActiveStepVisible() {
   else if (right > visibleRight - 4) nav.scrollTo({ left: right - nav.clientWidth + 4, behavior: "smooth" });
 }
 
-let labelOcrScriptPromise = null;
-async function loadTesseract() {
-  if (window.Tesseract) return window.Tesseract;
-  if (!labelOcrScriptPromise) {
-    labelOcrScriptPromise = new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.src = "https://cdn.jsdelivr.net/npm/tesseract.js@7.0.0/dist/tesseract.min.js";
-      script.async = true;
-      script.onload = () => window.Tesseract ? resolve(window.Tesseract) : reject(new Error("OCR library did not initialise."));
-      script.onerror = () => { labelOcrScriptPromise = null; reject(new Error("Could not load the OCR library. Check the internet connection and try again.")); };
-      document.head.appendChild(script);
-    });
-  }
-  return labelOcrScriptPromise;
-}
-function parseBottleLabel(text) {
-  const lines = String(text || "").split(/\r?\n/).map(x => x.replace(/[|_]+/g, " ").replace(/\s{2,}/g, " ").trim()).filter(Boolean);
-  const joined = lines.join(" ");
-  const result = {};
-  const age = joined.match(/\b(?:aged\s+)?(\d{1,2})\s*(?:years?\s+old|years?|yrs?\.?|yo)\b/i);
-  if (age) result.age = age[1];
-  const abv = joined.match(/\b(\d{2}(?:[.,]\d{1,2})?)\s*%\s*(?:(?:alc(?:ohol)?\s*)?(?:by\s*)?(?:vol(?:ume)?|abv))?/i);
-  if (abv) result.abv = abv[1].replace(",", ".");
-  if (/\bsingle\s+pot\s+still\b/i.test(joined)) result.type = "Single pot still";
-  else if (/\bblended\s+malt\b/i.test(joined)) result.type = "Blended malt";
-  else if (/\bsingle\s+malt\b/i.test(joined)) result.type = "Single malt";
-  else if (/\bsingle\s+grain\b/i.test(joined)) result.type = "Single grain";
-  else if (/\bblended\b/i.test(joined)) result.type = "Blended";
-  else if (/\b(?:straight\s+)?(?:bourbon|rye)\b/i.test(joined)) result.type = "Straight";
-
-  if (/\b(scotch|scottish|scotland|islay|speyside|highland|lowland|campbeltown)\b/i.test(joined)) result.category = "Scotch";
-  else if (/\b(irish|ireland)\b/i.test(joined)) result.category = "Irish";
-  else if (/\b(bourbon|kentucky|tennessee|american whiskey|american whisky)\b/i.test(joined)) result.category = "Bourbon";
-  else if (/\b(rye whiskey|rye whisky|canadian rye)\b/i.test(joined)) result.category = "Rye";
-  else if (/\b(japanese|japan|canadian|canada|indian|india|taiwanese|taiwan)\b/i.test(joined)) result.category = "Other";
-
-  const regionOptions = REGIONS[result.category || ""] || [];
-  const region = regionOptions.find(r => new RegExp(`\\b${r.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\$&")}s?\\b`, "i").test(joined));
-  if (region) result.region = region;
-
-  const distilleryLine = lines.find(x => /\b(distillery|distillers|distilling company)\b/i.test(x));
-  if (distilleryLine) {
-    result.distillery = distilleryLine.replace(/\b(the\s+)?(distillery|distillers|distilling company|distilling co\.?|distillers? ltd\.?)\b.*$/i, "").trim().replace(/[,:;\-]+$/, "");
-  }
-  const generic = /\b(single|malt|blended|grain|pot still|scotch|scottish|irish|whisky|whiskey|bourbon|rye|aged|years?|yrs?|yo|distilled|bottled|distillery|distillers|distilling|alcohol|vol|abv|proof|700\s?ml|750\s?ml|40\s?%|46\s?%)\b/i;
-  const nameLine = lines.find(x => x.length >= 3 && x.length <= 42 && !/^\d/.test(x) && !generic.test(x) && !/\d+(?:[.,]\d+)?\s*%/.test(x) && !/\b\d{1,2}\s*(?:years?|yrs?|yo)\b/i.test(x) && !/\b(isle of|island|scotland|ireland|kentucky|tennessee|japan|canada|usa|united states)\b/i.test(x));
-  if (nameLine) result.name = nameLine.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9'’&. -]+$/g, "").trim();
-  else if (result.distillery) result.name = [result.distillery, result.age].filter(Boolean).join(" ");
-  return result;
-}
-function applyBottleLabelSuggestions(text) {
-  const suggestions = parseBottleLabel(text), filled = [];
-  const fill = (key, value, allowDefault = false) => {
-    if (!value || manualBottleFields.has(key)) return;
-    const current = String(draft[key] ?? "").trim();
-    if (!current || allowDefault) {
-      draft[key] = value;
-      const input = document.querySelector(`[data-f="${key}"]`);
-      if (input) input.value = value;
-      filled.push(key === "name" ? "bottle name" : key === "abv" ? "ABV" : key);
-    }
-  };
-  fill("name", suggestions.name);
-  fill("distillery", suggestions.distillery);
-  fill("age", suggestions.age);
-  fill("abv", suggestions.abv);
-  fill("type", suggestions.type);
-  fill("category", suggestions.category, draft.category === "Scotch");
-  fill("region", suggestions.region);
-  const regionList = $("#rg");
-  if (regionList && suggestions.category) regionList.innerHTML = (REGIONS[draft.category] || []).map(r => `<option value="${esc(r)}">`).join("");
-  return filled;
-}
-function paintLabelStatus() {
-  const status = $("#labelOcrStatus");
-  if (status) status.textContent = labelOcrStatus;
-  const button = document.querySelector('[data-a="scanLabel"]');
-  if (button) { button.disabled = labelOcrBusy; if (labelOcrBusy) button.textContent = "Reading label…"; }
-  document.querySelectorAll('[data-a="save"]').forEach(saveButton => { saveButton.disabled = labelOcrBusy; });
-}
-function paintLabelPreview() {
-  const src = pendingLabel || savedLabelPhoto;
-  const wrap = $("#labelPreviewWrap"), img = $("#labelPreview");
-  if (wrap) wrap.hidden = !src;
-  if (img && src) img.src = src;
-}
-async function processLabelPhoto(file) {
-  if (!file || !file.type.startsWith("image/")) { toast("Choose an image of the bottle label."); return; }
-  const targetId = draft?.id, token = ++labelScanToken;
-  const isCurrent = () => token === labelScanToken && draft?.id === targetId && view === "note" && editing;
-  let worker = null;
-  labelOcrBusy = true;
-  labelOcrStatus = "Preparing label photograph…";
-  paintLabelStatus();
-  try {
-    pendingLabel = await shrink(file, 1000, 0.76);
-    const ocrImage = await shrink(file, 2000, 0.9);
-    if (!isCurrent()) return;
-    labelRemoved = false;
-    paintLabelPreview();
-    labelOcrStatus = "Loading the on-device text reader…";
-    paintLabelStatus();
-    const Tesseract = await loadTesseract();
-    if (!isCurrent()) return;
-    worker = await Tesseract.createWorker("eng", 1, {
-      logger: message => {
-        if (!isCurrent()) return;
-        const pct = typeof message.progress === "number" ? ` ${Math.round(message.progress * 100)}%` : "";
-        labelOcrStatus = `${message.status || "Reading label"}${pct}`;
-        paintLabelStatus();
-      }
-    });
-    const result = await worker.recognize(ocrImage);
-    if (!isCurrent()) return;
-    const text = String(result?.data?.text || "").trim();
-    draft.labelText = text;
-    if (!text) {
-      labelOcrStatus = "No readable text was found. Try a closer, sharper photo with less glare, or enter the details manually.";
-    } else {
-      const filled = applyBottleLabelSuggestions(text);
-      labelOcrStatus = filled.length
-        ? `Read the label and filled: ${filled.join(", ")}. Please check each suggested value.`
-        : "Text was read, but no empty fields could be confidently filled. Review the label text and enter details manually.";
-    }
-    if (step === 0) render();
-  } catch (error) {
-    if (isCurrent()) {
-      console.error("Label OCR failed", error);
-      labelOcrStatus = error?.message || "The label could not be read. You can still enter all bottle details manually.";
-      paintLabelStatus();
-      toast("Label scan could not be completed");
-    }
-  } finally {
-    if (worker) { try { await worker.terminate(); } catch {} }
-    if (isCurrent()) {
-      labelOcrBusy = false;
-      paintLabelStatus();
-    }
-  }
-}
-
 function bindPhoto() {
   const d = $("#drop");
   d.ondragover = e => { e.preventDefault(); d.classList.add("drag"); };
   d.ondragleave = () => d.classList.remove("drag");
   d.ondrop = e => { e.preventDefault(); d.classList.remove("drag"); if (e.dataTransfer.files[0]) setPhoto(e.dataTransfer.files[0]); };
   $("#file").onchange = e => e.target.files[0] && setPhoto(e.target.files[0]);
-  const labelInput = $("#labelFile");
-  if (labelInput) labelInput.onchange = e => {
-    const file = e.target.files[0];
-    if (file) processLabelPhoto(file);
-    e.target.value = "";
-  };
 }
 async function setPhoto(file) {
   try {
-    draft.thumb = await shrink(file, 200, 0.7);
-    pending = await shrink(file, 800, 0.8);
-    $("#drop").innerHTML = `<img id="pimg" src="${pending}" alt="Bottle photo"><input type="file" id="file" accept="image/*" hidden>`;
-    $("#file").onchange = e => e.target.files[0] && setPhoto(e.target.files[0]);
-  } catch { toast("Could not read that image. Try a JPEG or PNG."); }
+    const bitmap = await createImageBitmap(file, { imageOrientation: "from-image" });
+    openPhotoCrop(bitmap);
+  } catch {
+    toast("Could not read that image. Try a JPEG or PNG.");
+  }
 }
 
-async function openNote(n, edit, labelPhotoHint = null, skipLabelPhotoFetch = false) {
-  guideOn = false;
-  draft = n; draft.tags ||= {}; draft.notes ||= {}; draft.other ||= {}; draft.labelText ||= ""; draft.waterUnit ||= waterAmountParts(draft).unit;
-  labelScanToken++; editing = edit; pending = null; pendingLabel = null; savedLabelPhoto = labelPhotoHint; labelRemoved = false; labelOcrStatus = ""; labelOcrBusy = false; manualBottleFields.clear(); step = 0; view = "note"; render();
-  if (n.thumb) { const f = await store.photo(n.id); const i = $("#pimg"); if (f && i && draft?.id === n.id) i.src = f; }
-  if (!skipLabelPhotoFetch && store.labelPhoto) {
-    const label = await store.labelPhoto(n.id);
-    if (label && draft?.id === n.id) {
-      savedLabelPhoto = label;
-      if (view === "note" && step === 0) {
-        if ($("#labelPreviewWrap")) paintLabelPreview();
-        else render();
-      }
-    }
+function openPhotoCrop(bitmap) {
+  closePhotoCrop();
+  photoCrop = { bitmap, zoom: 1, x: 0, y: 0, baseScale: 1, stageW: 0, stageH: 0, drag: null };
+  const modal = document.createElement("div");
+  modal.id = "photoCropModal";
+  modal.className = "photo-crop-modal";
+  modal.innerHTML = `<section class="photo-crop-dialog" role="dialog" aria-modal="true" aria-labelledby="photoCropTitle">
+    <div class="photo-crop-head"><h3 id="photoCropTitle">Crop bottle photo</h3><button class="btn ghost" type="button" data-crop-action="cancel">Cancel</button></div>
+    <p class="photo-crop-help">Drag the photo to position the bottle inside the frame. Use the slider to zoom in or out.</p>
+    <div class="photo-crop-stage" id="photoCropStage" aria-label="Photo crop area. Drag to reposition."><canvas id="photoCropCanvas"></canvas><div class="photo-crop-frame"></div></div>
+    <div class="photo-crop-controls"><label class="photo-crop-zoom">Zoom <input id="photoCropZoom" type="range" min="1" max="3.5" step="0.01" value="1" aria-label="Zoom photo"></label><button class="btn ghost" type="button" data-crop-action="reset">Reset</button></div>
+    <div class="photo-crop-actions"><button class="btn ghost" type="button" data-crop-action="cancel">Cancel</button><button class="btn" type="button" data-crop-action="apply">Use cropped photo</button></div>
+    <p class="photo-crop-note">Portrait crop · 3:4 display frame</p>
+  </section>`;
+  $("#root").appendChild(modal);
+  requestAnimationFrame(() => {
+    if (!photoCrop || !document.getElementById("photoCropStage")) return;
+    const stage = $("#photoCropStage"), canvas = $("#photoCropCanvas"), b = photoCrop.bitmap;
+    const rect = stage.getBoundingClientRect();
+    photoCrop.stageW = rect.width; photoCrop.stageH = rect.height;
+    photoCrop.baseScale = Math.max(rect.width / b.width, rect.height / b.height);
+    photoCrop.zoom = 1;
+    photoCrop.x = (rect.width - b.width * photoCrop.baseScale) / 2;
+    photoCrop.y = (rect.height - b.height * photoCrop.baseScale) / 2;
+    const previewScale = Math.min(1, 1800 / Math.max(b.width, b.height));
+    canvas.width = Math.max(1, Math.round(b.width * previewScale));
+    canvas.height = Math.max(1, Math.round(b.height * previewScale));
+    canvas.getContext("2d", { alpha: false }).drawImage(b, 0, 0, canvas.width, canvas.height);
+    paintPhotoCrop();
+    bindPhotoCropDrag(stage);
+  });
+}
+
+function paintPhotoCrop() {
+  if (!photoCrop) return;
+  const canvas = $("#photoCropCanvas");
+  if (!canvas) return;
+  const scale = photoCrop.baseScale * photoCrop.zoom;
+  const w = photoCrop.bitmap.width * scale, h = photoCrop.bitmap.height * scale;
+  photoCrop.x = Math.min(0, Math.max(photoCrop.stageW - w, photoCrop.x));
+  photoCrop.y = Math.min(0, Math.max(photoCrop.stageH - h, photoCrop.y));
+  canvas.style.width = `${w}px`; canvas.style.height = `${h}px`;
+  canvas.style.left = `${photoCrop.x}px`; canvas.style.top = `${photoCrop.y}px`;
+}
+
+function bindPhotoCropDrag(stage) {
+  stage.addEventListener("pointerdown", e => {
+    if (!photoCrop) return;
+    e.preventDefault();
+    stage.setPointerCapture?.(e.pointerId);
+    photoCrop.drag = { id: e.pointerId, startX: e.clientX, startY: e.clientY, imageX: photoCrop.x, imageY: photoCrop.y };
+  });
+  stage.addEventListener("pointermove", e => {
+    if (!photoCrop?.drag || photoCrop.drag.id !== e.pointerId) return;
+    e.preventDefault();
+    photoCrop.x = photoCrop.drag.imageX + e.clientX - photoCrop.drag.startX;
+    photoCrop.y = photoCrop.drag.imageY + e.clientY - photoCrop.drag.startY;
+    paintPhotoCrop();
+  });
+  const finish = e => { if (photoCrop?.drag?.id === e.pointerId) photoCrop.drag = null; };
+  stage.addEventListener("pointerup", finish);
+  stage.addEventListener("pointercancel", finish);
+}
+
+function setPhotoCropZoom(value) {
+  if (!photoCrop) return;
+  const next = Math.min(3.5, Math.max(1, Number(value) || 1));
+  const oldScale = photoCrop.baseScale * photoCrop.zoom;
+  const centerX = (photoCrop.stageW / 2 - photoCrop.x) / oldScale;
+  const centerY = (photoCrop.stageH / 2 - photoCrop.y) / oldScale;
+  photoCrop.zoom = next;
+  const newScale = photoCrop.baseScale * next;
+  photoCrop.x = photoCrop.stageW / 2 - centerX * newScale;
+  photoCrop.y = photoCrop.stageH / 2 - centerY * newScale;
+  paintPhotoCrop();
+}
+
+function resetPhotoCrop() {
+  if (!photoCrop) return;
+  photoCrop.zoom = 1;
+  photoCrop.x = (photoCrop.stageW - photoCrop.bitmap.width * photoCrop.baseScale) / 2;
+  photoCrop.y = (photoCrop.stageH - photoCrop.bitmap.height * photoCrop.baseScale) / 2;
+  const slider = $("#photoCropZoom"); if (slider) slider.value = "1";
+  paintPhotoCrop();
+}
+
+function closePhotoCrop() {
+  if (photoCrop?.bitmap) photoCrop.bitmap.close?.();
+  photoCrop = null;
+  $("#photoCropModal")?.remove();
+}
+
+function applyPhotoCrop() {
+  if (!photoCrop || !draft) return;
+  const { bitmap, baseScale, zoom, x, y, stageW, stageH } = photoCrop;
+  const scale = baseScale * zoom;
+  const sx = Math.max(0, Math.min(bitmap.width, -x / scale));
+  const sy = Math.max(0, Math.min(bitmap.height, -y / scale));
+  const sw = Math.min(bitmap.width - sx, stageW / scale);
+  const sh = Math.min(bitmap.height - sy, stageH / scale);
+  if (!(sw > 0 && sh > 0)) { toast("Could not crop that photo. Please try again."); return; }
+  const outScale = Math.min(1, 1200 / Math.max(sw, sh));
+  const out = document.createElement("canvas");
+  out.width = Math.max(1, Math.round(sw * outScale));
+  out.height = Math.max(1, Math.round(sh * outScale));
+  out.getContext("2d", { alpha: false }).drawImage(bitmap, sx, sy, sw, sh, 0, 0, out.width, out.height);
+  pending = out.toDataURL("image/jpeg", 0.86);
+  const thumb = document.createElement("canvas");
+  thumb.width = 150; thumb.height = 200;
+  thumb.getContext("2d", { alpha: false }).drawImage(out, 0, 0, thumb.width, thumb.height);
+  draft.thumb = thumb.toDataURL("image/jpeg", 0.72);
+  const preview = $("#drop");
+  if (preview) {
+    preview.innerHTML = `<img id="pimg" src="${pending}" alt="Cropped full bottle photograph"><input type="file" id="file" accept="image/*" hidden>`;
+    const input = $("#file"); if (input) input.onchange = e => e.target.files[0] && setPhoto(e.target.files[0]);
   }
+  closePhotoCrop();
+  toast("Bottle photo cropped");
+}
+
+async function openNote(n, edit) {
+  guideOn = false;
+  draft = n; draft.tags ||= {}; draft.notes ||= {}; draft.other ||= {}; draft.waterUnit ||= waterAmountParts(draft).unit;
+  editing = edit; pending = null; manualBottleFields.clear(); step = 0; view = "note"; render();
+  if (n.thumb) { const f = await store.photo(n.id); const i = $("#pimg"); if (f && i && draft?.id === n.id) i.src = f; }
 }
 function paintRate() {
   document.querySelectorAll("#rate .s").forEach((e, k) => { const i = k + 1, v = draft.rating; e.className = "s " + (v >= i ? "f" : v >= i - .5 ? "h" : ""); });
@@ -1324,6 +1266,10 @@ const cmp = () => {
 
 function onClick(e) {
   const t = e.target;
+  const cropAction = t.closest("[data-crop-action]")?.dataset.cropAction;
+  if (cropAction === "cancel") { closePhotoCrop(); return; }
+  if (cropAction === "reset") { resetPhotoCrop(); return; }
+  if (cropAction === "apply") { applyPhotoCrop(); return; }
   const waterPreset = t.closest("[data-water-preset]");
   if (waterPreset && editing && draft) {
     const amount = waterPreset.dataset.waterPreset;
@@ -1372,11 +1318,6 @@ function onClick(e) {
   const sp = t.closest("[data-step]"); if (sp) { step = +sp.dataset.step; render(); return; }
   const a = t.closest("[data-a]")?.dataset.a;
   if (a === "toggleHome") { homeDesign = homeDesign === "home2" ? "home1" : "home2"; view = "home"; render(); return; }
-  if (a === "scanLabel") { $("#labelFile")?.click(); return; }
-  if (a === "clearLabel") {
-    pendingLabel = null; savedLabelPhoto = null; labelRemoved = true; labelOcrStatus = "Label photograph removed. The full bottle photo is unchanged.";
-    render(); return;
-  }
   if (a === "new") openNote(blank(), true);
   if (a === "guideDone") { guideOn = false; render(); return; }
   if (a === "out") fb.signOut(auth);
@@ -1391,15 +1332,12 @@ function onClick(e) {
     if (o) openNote({ ...blank(), ...structuredClone(o) }, false); else { draft = null; editing = false; view = "coll"; render(); }
   }
   if (a === "save") {
-    if (labelOcrBusy) { toast("Wait for the label scan to finish before saving"); return; }
     if (!draft.name.trim()) { toast("Add a bottle name first"); step = 0; render(); return; }
     draft.updated = Date.now();
-    const labelPhotoHint = pendingLabel || (labelRemoved ? null : savedLabelPhoto);
-    const skipLabelPhotoFetch = labelRemoved;
-    store.save(draft, pending, pendingLabel, labelRemoved);
+    store.save(draft, pending);
     const copy = structuredClone(draft), i = notes.findIndex(n => n.id === draft.id);
     if (i < 0) notes.push(copy); else notes[i] = copy;
-    toast("Saved"); guideOn = false; openNote(structuredClone(copy), false, labelPhotoHint, skipLabelPhotoFetch);
+    toast("Saved"); guideOn = false; openNote(structuredClone(copy), false);
   }
   if (a === "del" && confirm("Delete this note? This cannot be undone.")) {
     store.del(draft.id); notes = notes.filter(n => n.id !== draft.id);
@@ -1408,6 +1346,7 @@ function onClick(e) {
 }
 function onInput(e) {
   const t = e.target;
+  if (t.id === "photoCropZoom") { setPhotoCropZoom(t.value); return; }
   if (t.id === "q") { q = t.value; renderList(); return; }
   if (t.dataset.cmp) { t.dataset.cmp === "A" ? cA = t.value : cB = t.value; const y = scrollY; render(); scrollTo(0, y); return; }
   if (!editing) return;
