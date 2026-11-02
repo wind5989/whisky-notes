@@ -1,10 +1,10 @@
 <!doctype html>
-<!-- Whisky Notes v3.25 -->
+<!-- Whisky Notes v3.26 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Whisky Notes v3.25</title>
+<title>Whisky Notes v3.26</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f1e6d2;--panel:#fbf6ea;--line:#dcc9aa;--ink:#3b2417;--mute:#5e4a37;--brown:#7a3d1c;--amber:#e3a03a;--cream:#f7eddb;--r:12px}
@@ -68,7 +68,7 @@ button{cursor:pointer}
 .big{font-size:30px;margin:6px 0}
 .dhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px}
 .top{display:grid;grid-template-columns:150px 1fr;gap:16px;margin:12px 0}
-.photo{aspect-ratio:3/4;border:1px dashed var(--line);border-radius:var(--r);display:grid;place-items:center;text-align:center;color:var(--mute);cursor:pointer;overflow:hidden;position:relative;padding:8px}
+.photo{aspect-ratio:1/2;border:1px dashed var(--line);border-radius:var(--r);display:grid;place-items:center;text-align:center;color:var(--mute);cursor:pointer;overflow:hidden;position:relative;padding:8px}
 .photo.drag{border-color:var(--brown)}
 .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;align-content:start}
@@ -292,18 +292,19 @@ span.heart{display:inline-block;text-align:center;line-height:44px;pointer-event
 .entry-panel-head h3{font-size:23px;margin:0 0 4px}
 .entry-panel-head p{margin:0;color:var(--mute);font-size:13px;line-height:1.45}
 .bottle-entry-grid{grid-template-columns:132px minmax(0,1fr);gap:13px;margin:0}
+.bottle-entry-grid .photo{align-self:start;width:100%;height:auto}
 
 .tasting-view .photo{min-height:172px;background:#f1e6d2;border-color:#cdb99a;color:#805b3a;font-size:13px;line-height:1.35}
 .tasting-view .photo img{object-fit:contain;background:#eee3d0}
 
-/* v3.25 — quick bottle-photo cropper */
+/* v3.26 — tall 1.5:3 bottle-photo crop frame */
 .photo-crop-modal{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:calc(12px + env(safe-area-inset-top)) 14px calc(12px + env(safe-area-inset-bottom));background:rgba(31,20,13,.82);}
 .photo-crop-dialog{width:min(100%,440px);max-height:100%;overflow:auto;background:var(--panel);border:1px solid #d7c3a3;border-radius:18px;padding:16px;box-shadow:0 16px 48px rgba(0,0,0,.35);}
 .photo-crop-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:5px;}
 .photo-crop-head h3{margin:0;font-size:23px;color:#593a26;}
 .photo-crop-head .btn{min-height:38px;padding:7px 12px;}
 .photo-crop-help{font-size:13px;line-height:1.4;color:var(--mute);margin:4px 0 10px;}
-.photo-crop-stage{position:relative;width:min(100%,340px,41.25dvh);aspect-ratio:3/4;margin:0 auto 13px;overflow:hidden;border:2px solid #f9efdd;border-radius:10px;background:#281b12;box-shadow:0 2px 9px rgba(44,27,14,.2);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;}
+.photo-crop-stage{position:relative;width:min(100%,260px,32dvh);aspect-ratio:1/2;margin:0 auto 13px;overflow:hidden;border:2px solid #f9efdd;border-radius:10px;background:#281b12;box-shadow:0 2px 9px rgba(44,27,14,.2);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;}
 .photo-crop-stage:active{cursor:grabbing;}
 .photo-crop-stage canvas{position:absolute;left:0;top:0;max-width:none;max-height:none;pointer-events:none;}
 .photo-crop-frame{position:absolute;inset:0;border:1px solid rgba(255,246,226,.68);box-shadow:inset 0 0 0 1px rgba(60,35,17,.18);pointer-events:none;}
@@ -314,7 +315,7 @@ span.heart{display:inline-block;text-align:center;line-height:44px;pointer-event
 .photo-crop-actions{display:flex;gap:9px;margin-top:8px;}
 .photo-crop-actions .btn{flex:1;min-height:46px;}
 .photo-crop-note{font-size:11px;color:#806348;text-align:center;margin:9px 0 0;}
-@media(max-height:650px){.photo-crop-dialog{padding:12px}.photo-crop-stage{width:min(100%,300px,37.5dvh);}.photo-crop-head h3{font-size:20px;}}
+@media(max-height:650px){.photo-crop-dialog{padding:12px}.photo-crop-stage{width:min(100%,220px,30dvh);}.photo-crop-head h3{font-size:20px;}}
 .tasting-view .bottle-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .tasting-view .fld{color:#765b40;font-size:13px;font-weight:600;margin:0 0 11px}
 .tasting-view .fld input,.tasting-view .fld select,.tasting-view .fld textarea{margin-top:5px;background:#fffaf1;border-color:#d7c3a3;border-radius:9px;padding:11px 10px;font-size:16px;font-weight:400;min-width:0}
@@ -616,7 +617,7 @@ if (LOCAL) {
 /* ---------- State and helpers ---------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const VERSION = "3.25";
+const VERSION = "3.26";
 let gTab = "cat", gSel = null, gDet = null, cA = "", cB = "";
 let notes = [], cat = "All", q = "", view = "home", homeDesign = "home2", draft = null, pending = null, editing = false, step = 0;
 let photoCrop = null;
@@ -1048,7 +1049,7 @@ function openPhotoCrop(bitmap) {
     <div class="photo-crop-stage" id="photoCropStage" aria-label="Photo crop area. Drag to reposition."><canvas id="photoCropCanvas"></canvas><div class="photo-crop-frame"></div></div>
     <div class="photo-crop-controls"><label class="photo-crop-zoom">Zoom <input id="photoCropZoom" type="range" min="1" max="3.5" step="0.01" value="1" aria-label="Zoom photo"></label><button class="btn ghost" type="button" data-crop-action="reset">Reset</button></div>
     <div class="photo-crop-actions"><button class="btn ghost" type="button" data-crop-action="cancel">Cancel</button><button class="btn" type="button" data-crop-action="apply">Use cropped photo</button></div>
-    <p class="photo-crop-note">Portrait crop · 3:4 display frame</p>
+    <p class="photo-crop-note">Tall bottle crop · 1.5:3 display frame</p>
   </section>`;
   $("#root").appendChild(modal);
   requestAnimationFrame(() => {
