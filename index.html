@@ -1,10 +1,10 @@
 <!doctype html>
-<!-- Whisky Notes v3.28 -->
+<!-- Whisky Notes v3.29 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Whisky Notes v3.28</title>
+<title>Whisky Notes v3.29</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f1e6d2;--panel:#fbf6ea;--line:#dcc9aa;--ink:#3b2417;--mute:#5e4a37;--brown:#7a3d1c;--amber:#e3a03a;--cream:#f7eddb;--r:12px}
@@ -23,34 +23,12 @@ button{cursor:pointer}
 .btn{background:var(--brown);color:var(--cream);border:0;border-radius:var(--r);padding:12px 18px;font-weight:600;min-height:48px}
 .btn.ghost{background:none;color:var(--ink);border:1px solid var(--line)}
 .btn.danger{background:none;color:#a2392b;border:1px solid #d9a79c}
-.cover{container-type:inline-size;position:relative;margin:0 auto;aspect-ratio:2/3;width:min(100%,calc((100vh - 106px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) * .6667));width:min(100%,calc((100dvh - 106px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) * .6667));background:#2a1810 url(img/cover.webp) center/100% 100% no-repeat;border-radius:12px;box-shadow:0 6px 18px rgba(40,20,8,.35)}
-.home-design-toggle{position:absolute;top:10px;right:10px;z-index:3;display:inline-flex;align-items:center;gap:6px;min-height:35px;padding:6px 10px;border-radius:99px;font:600 11px/1 Figtree,system-ui,sans-serif;letter-spacing:.02em;box-shadow:0 2px 6px rgba(30,18,9,.12)}
-.home-design-toggle--one{background:rgba(35,20,12,.82);border:1px solid rgba(224,190,130,.62);color:#efd49f}
-.home-design-toggle--two{background:rgba(251,244,230,.94);border:1px solid #c7a77f;color:#69472d}
-.home-design-toggle:active{transform:translateY(1px)}
-.home2-page{position:relative;padding-top:5px}
-.home2-page .home-design-toggle{top:8px;right:7px}
-@media(max-width:380px){.home-design-toggle{top:7px;right:7px;min-height:32px;padding:6px 8px;font-size:10px}}
-.cin{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:11cqw 10cqw 8cqw}
-.ttl{text-align:center}.ttl h1{font-size:13.5cqw;line-height:1.05;color:#d9ab5e;text-shadow:0 -1px 1px rgba(0,0,0,.75),0 1px 1px rgba(255,225,170,.28)}
-.ttl small{display:block;color:#b99560;font-size:max(11px,3.2cqw);margin-top:1cqw}.ttl p{margin:3cqw 0 0;color:#cdb08a;font-size:max(13px,4cqw);text-shadow:0 -1px 0 rgba(0,0,0,.6)}
-.ttl::after{content:"";display:block;width:40%;height:1px;margin:5cqw auto 0;background:linear-gradient(90deg,transparent,#c9a15a,transparent);box-shadow:0 1px 0 rgba(0,0,0,.5)}
-.lb{position:relative;display:flex;justify-content:space-between;align-items:center;width:100%;min-height:44px;padding:3.2cqw 5cqw;margin:0 0 3.4cqw;font-size:max(15px,4.8cqw);color:#e4c488;background:linear-gradient(rgba(0,0,0,.34),rgba(0,0,0,.22));border:0;border-radius:2.4cqw;text-align:left;box-shadow:inset 0 2px 5px rgba(0,0,0,.65),inset 0 -1px 0 rgba(255,220,160,.12),0 1px 0 rgba(255,220,160,.14);text-shadow:0 -1px 0 rgba(0,0,0,.7)}
-.lb::before{content:"";position:absolute;inset:1.3cqw;border:1.5px dashed rgba(224,190,130,.5);border-radius:1.4cqw;pointer-events:none}
-.lb small{color:#b99560;font-size:max(12px,3.8cqw)}.lb:active{box-shadow:inset 0 3px 8px rgba(0,0,0,.85)}
-.lb.big{justify-content:center;font-size:max(17px,5.4cqw);font-weight:600;color:#f0d49a;background:linear-gradient(rgba(150,95,30,.5),rgba(90,55,20,.5))}
-.lo{align-self:center;background:none;border:0;min-height:44px;padding:0 4cqw;color:#b99560;font-size:max(13px,3.8cqw);text-decoration:underline;text-underline-offset:3px}
-.hero{background:linear-gradient(160deg,#3a2012,#6b3519);color:var(--cream);border-radius:20px;padding:28px 20px;margin-bottom:16px}
-.hero h1{font-size:34px}.hero p{margin:4px 0 20px;color:#d9bf9c}
-.hero .btn{background:var(--cream);color:var(--brown);width:100%;font-size:18px}
 .row{display:flex;justify-content:space-between;align-items:center;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;text-align:left}
 .row small,.mute,.item small{color:var(--mute)}
 .card{display:block}
-.srch{width:100%;margin:10px 0 4px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px;font-size:16px}
 .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
 .tab{background:none;border:1px solid var(--line);border-radius:99px;padding:6px 14px;color:var(--mute);min-height:38px}
 .tab.on{background:var(--brown);border-color:var(--brown);color:var(--cream)}
-.brk{flex-basis:100%;height:0}
 .item{display:flex;gap:4px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:10px;margin-bottom:10px}
 .main{display:flex;gap:12px;flex:1;min-width:0;background:none;border:0;text-align:left;align-items:center;padding:0}
 .item img,.ph{width:56px;height:72px;border-radius:8px;object-fit:cover;background:var(--line);flex:none}
@@ -90,7 +68,6 @@ legend{color:var(--mute);font-size:14px;padding:0;margin-bottom:6px}
 .acts{display:flex;gap:12px;margin-top:22px}
 .acts .btn{flex:1}
 .acts.pin{position:sticky;bottom:calc(57px + env(safe-area-inset-bottom));background:var(--bg) var(--paper);border-top:1px solid var(--line);margin:14px -16px 0;padding:10px 16px;z-index:3}
-.wdone{position:sticky;top:8px;display:flex;justify-content:flex-end;pointer-events:none;z-index:2}.wdone .btn{pointer-events:auto}
 .empty{color:var(--mute);padding:20px 4px}
 .toast{position:fixed;bottom:calc(76px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--cream);padding:10px 18px;border-radius:99px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9}
 .toast.show{opacity:1}
@@ -102,12 +79,10 @@ legend{color:var(--mute);font-size:14px;padding:0;margin-bottom:6px}
 .tip{position:sticky;bottom:calc(135px + env(safe-area-inset-bottom));background:var(--ink);color:var(--cream);border-radius:var(--r);padding:10px 14px;margin:10px 0;z-index:4;cursor:pointer}
 .tip small{color:#d9bf9c}
 .ov{position:fixed;inset:0;background:var(--bg) var(--paper);overflow:auto;z-index:8;padding-top:env(safe-area-inset-top)}
-.wheel{display:block;width:100%;max-width:340px;margin:10px auto}.wheel g{cursor:pointer;outline:none}.wheel g:focus-visible path{stroke:var(--ink);stroke-width:3}
 .cmp{display:grid;grid-template-columns:72px 1fr 1fr;gap:6px 10px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px;margin:10px 0}.cmp>*{min-width:0;overflow-wrap:anywhere}
 .pill{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:3px 10px;margin:2px 4px 2px 0;background:var(--panel);font-size:14px}.pill.sh{background:var(--brown);border-color:var(--brown);color:var(--cream)}
 span.heart{display:inline-block;text-align:center;line-height:44px;pointer-events:none}
 .ver{font:12px Figtree,system-ui,sans-serif;color:var(--mute)}
-.hero .ver{color:#d9bf9c}
 @media(max-width:560px){.top{grid-template-columns:110px 1fr}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 
@@ -229,11 +204,6 @@ span.heart{display:inline-block;text-align:center;line-height:44px;pointer-event
 .learn-card-water .learn-card-copy{grid-column:2;grid-row:2;align-self:start;min-width:0}
 .learn-card-water .learn-card-link{grid-column:3;grid-row:1/3;align-self:center;margin:0;white-space:nowrap}
 .learn-card-water .learn-number{top:7px;right:9px;opacity:.8}
-.learn-reference{display:flex;align-items:center;gap:12px;margin:14px 0 0;padding:12px 14px;background:#eee3d0;border:1px solid #d9c6a8;border-radius:12px;color:var(--ink);text-decoration:none}
-.learn-reference-icon{display:grid;place-items:center;flex:none;width:38px;height:38px;border:1px solid #b99a72;border-radius:50%;font-size:20px;color:#94683e}
-.learn-reference b,.learn-reference small{display:block}
-.learn-reference b{font:600 16px Fraunces,Georgia,serif}
-.learn-reference small{font-size:13px;line-height:1.35;color:var(--mute);margin-top:3px}
 .water-placeholder{display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:20px;padding:24px 18px;background:linear-gradient(160deg,#fcf8ef,#f6ecdd);border:1px solid var(--line);border-radius:14px}
 .water-placeholder-art{display:block;width:110px;height:90px;margin-bottom:10px}
 .water-placeholder-art svg{width:100%;height:100%}
@@ -260,7 +230,7 @@ span.heart{display:inline-block;text-align:center;line-height:44px;pointer-event
 .tasting-list{display:flex;flex-direction:column;gap:9px;margin-top:3px}
 .tasting-row-card{position:relative;display:flex;align-items:center;gap:8px;padding:10px 28px 10px 10px;background:linear-gradient(160deg,#fcf8ef,#f5ead8);border:1px solid #d7c3a3;border-radius:14px;box-shadow:0 2px 5px rgba(69,43,22,.05);min-width:0}
 .tasting-row-main{display:flex;align-items:center;gap:12px;flex:1;min-width:0;padding:0;border:0;background:none;text-align:left;color:var(--ink)}
-.tasting-row-photo{width:64px;height:78px;border-radius:9px;overflow:hidden;display:grid;place-items:center;flex:none;background:#e9dcc6;color:#8c6a44;font-size:30px;border:1px solid #d9c6a8}
+.tasting-row-photo{width:64px;height:128px;border-radius:9px;overflow:hidden;display:grid;place-items:center;flex:none;background:#e9dcc6;color:#8c6a44;font-size:30px;border:1px solid #d9c6a8}
 .tasting-row-photo img{width:100%;height:100%;object-fit:cover}
 .tasting-row-info{display:block;min-width:0;flex:1}
 .tasting-row-info>b{display:block;font:600 18px/1.2 Fraunces,Georgia,serif;margin:3px 0;overflow-wrap:anywhere}
@@ -424,61 +394,9 @@ span.heart{display:inline-block;text-align:center;line-height:44px;pointer-event
 }
 
 
-/* Home 2: editorial parchment and Glencairn illustration. Home 1 is untouched. */
-.home2-page{max-width:690px;margin:0 auto;padding:5px 0 18px;color:#493321}
-.home2-header{text-align:center;padding:10px 8px 17px}
-.home2-kicker{display:inline-block;color:#8a6648;font-size:11px;font-weight:700;letter-spacing:.17em;margin-bottom:5px}
-.home2-header h1{font-size:clamp(34px,8vw,49px);line-height:1.05;color:#593a26}
-.home2-version{display:block;margin-top:3px;color:#947555;font-size:11px;letter-spacing:.08em}
-.home2-rule{display:flex;align-items:center;justify-content:center;gap:12px;margin:12px auto 0;color:#8a6648}
-.home2-rule span{height:1px;width:min(18%,90px);background:linear-gradient(90deg,transparent,#a98055)}
-.home2-rule span:last-child{transform:scaleX(-1)}
-.home2-rule small{font-size:11px;letter-spacing:.15em;font-weight:700}
-.home2-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:10px;min-height:310px;padding:20px 17px;margin:0 0 15px;border:1px solid #d5b990;border-radius:18px;background:radial-gradient(ellipse at 28% 42%,rgba(224,181,115,.24),transparent 48%),linear-gradient(140deg,#f9f0df,#ecddc3);box-shadow:0 4px 12px rgba(79,48,25,.08);overflow:hidden}
-.home2-art-wrap{position:relative;display:flex;min-width:0;flex-direction:column;align-items:center;justify-content:center;align-self:stretch;padding:6px 0 0}
-.home2-glencairn{display:block;width:min(100%,235px);max-height:285px;filter:drop-shadow(0 8px 7px rgba(77,48,26,.13))}
-.home2-intro{padding:8px 7px 8px 15px;border-left:1px solid rgba(138,102,72,.27)}
-.home2-overline{font-size:10px;line-height:1.4;letter-spacing:.14em;font-weight:700;color:#8d6b4c}
-.home2-intro h2{font-size:clamp(24px,5.5vw,34px);line-height:1.08;margin:10px 0 12px;color:#593a26}
-.home2-intro p{font-size:14px;line-height:1.55;color:#72583f;margin:0}
-.home2-ornament{display:flex;align-items:center;gap:7px;width:90%;margin:18px 0 8px;color:#a4774c}
-.home2-ornament span{height:1px;flex:1;background:#c8a77f}
-.home2-ornament b{font-size:12px;font-weight:400}
-.home2-intro>small{font-family:Fraunces,Georgia,serif;font-style:italic;color:#8a6648;font-size:13px}
-.home2-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.home2-action{display:flex;align-items:center;gap:10px;min-width:0;min-height:78px;padding:12px 11px;border:1px solid #d7c09f;border-radius:13px;background:linear-gradient(145deg,#fbf5e9,#f1e4cf);color:#543922;text-align:left;box-shadow:0 2px 5px rgba(71,44,23,.06);transition:transform .12s,box-shadow .12s}
-.home2-action:active{transform:translateY(1px);box-shadow:inset 0 2px 4px rgba(71,44,23,.08)}
-.home2-action.primary{background:linear-gradient(145deg,#795334,#563822);border-color:#68472d;color:#fff3df}
-.home2-action-icon{display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;border:1px solid currentColor;border-radius:50%;font-family:Georgia,serif;font-size:23px;line-height:1;color:#98724c}
-.home2-action.primary .home2-action-icon{color:#ecd09f}
-.home2-action>span:nth-child(2){display:flex;flex:1;flex-direction:column;min-width:0;gap:3px}
-.home2-action b{font-family:Fraunces,Georgia,serif;font-size:16px;line-height:1.15;font-weight:600}
-.home2-action small{font-size:11px;line-height:1.3;color:#806448}
-.home2-action.primary small{color:#e4cfad}
-.home2-arrow{font-size:25px;line-height:1;color:#9a754d}
-.home2-action.primary .home2-arrow{color:#f0d8ad}
-.home2-signout{display:block;margin:14px auto 0;padding:8px 16px;border:0;background:none;color:#86694e;text-decoration:underline;text-underline-offset:3px;font-size:13px}
 /* Five bottom tabs are intentionally compact so Home 1/Home 2 can be compared on phones. */
 .bar button{font-size:12px;line-height:1.2;padding:3px 2px;white-space:nowrap}
-@media(max-width:440px){
-  .home2-hero{min-height:285px;padding:14px 10px;gap:4px}
-  .home2-glencairn{max-height:255px}
-  .home2-intro{padding-left:11px}
-  .home2-intro p{font-size:13px}
-  .home2-actions{gap:8px}
-  .home2-action{min-height:74px;padding:10px 8px;gap:7px}
-  .home2-action-icon{flex-basis:29px;width:29px;height:29px;font-size:20px}
-  .home2-action b{font-size:15px}
-  .home2-action small{font-size:10px}
-}
-@media(max-width:350px){
-  .home2-hero{grid-template-columns:42% 58%;padding:12px 7px;}
-  .home2-overline{font-size:9px}
-  .home2-intro h2{font-size:23px}
-  .home2-intro p{font-size:12px}
-  .bar button{font-size:10px}
-}
-@media(prefers-reduced-motion:reduce){.home2-action{transition:none}}
+@media(max-width:350px){.bar button{font-size:10px}}
 
 
 .app-links-list{display:grid;gap:10px;margin-top:18px}
@@ -488,6 +406,10 @@ span.heart{display:inline-block;text-align:center;line-height:44px;pointer-event
 .app-link-card b{font:600 16px Fraunces,Georgia,serif}
 .app-link-card small{font-size:12px;line-height:1.35;color:var(--mute);margin-top:3px}
 
+.tasting-row-profile{display:block;margin-top:6px;font-size:13px;line-height:1.4;color:var(--mute);font-style:italic}
+.flavour-profile{background:#eee3d0;border-left:3px solid #aa865c;border-radius:0 9px 9px 0;padding:11px 13px;margin:0 0 12px}
+.flavour-profile p{margin:4px 0 0;font-size:15px;line-height:1.5;font-style:italic;color:var(--ink)}
+.learning-view .descriptor-toggle small,.guide-page .descriptor-toggle small{font-size:13px;line-height:1.5;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -544,38 +466,38 @@ const TYPES = ["Single malt", "Blended malt", "Blended", "Single grain", "Single
 const REGIONS = { Scotch: ["Islay", "Speyside", "Highland", "Lowland", "Campbeltown", "Islands"], Irish: ["Ireland", "Northern Ireland"], Bourbon: ["Kentucky", "Tennessee", "Indiana", "Texas"], Rye: ["Kentucky", "Pennsylvania", "Maryland", "Canada"], Other: ["Japan", "Canada", "India", "Taiwan", "Australia"] };
 const GUIDE = [["Citrus", "Bright and zesty, like fresh peel or juice."], ["Fruity", "Orchard, berry and dried fruit, from crisp to jammy."], ["Sweet", "Dessert-like notes such as vanilla, caramel and honey."], ["Spicy", "A warm, tingling kick, like baking spices or pepper."], ["Woody", "Notes from the barrel: oak, cedar, tobacco and leather."], ["Smoky", "Peat, bonfire and ash, sometimes with a salty sea edge."]];
 const DETAIL = {
-  Lemon: ["Sharp, clean acidity, like fresh juice or zest.", "A bright lift on the nose, or a tang in lighter whiskies."],
-  Orange: ["Rounder and sweeter than lemon, like juice or marmalade.", "Common in sherry-matured whiskies. Try again after a drop of water."],
-  Grapefruit: ["Tart, with a slight bitterness.", "Often at the back of the taste in lighter, younger whiskies."],
-  "Orange peel": ["Aromatic, slightly bitter oils, like fresh zest.", "Frequent in bourbon, on the nose and finish."],
-  Lime: ["Sharp, green and fresh.", "Less common. Shows as a crisp edge in lighter styles."],
-  Apple: ["Crisp green apple or baked apple.", "A very common nose note in Speyside and Irish whiskies."],
-  Pear: ["Soft, juicy and gently sweet, like pear drops.", "Often on the nose in light, younger whiskies."],
-  "Stone fruit": ["Peach, apricot or plum: juicy and soft.", "Look for it in the middle of the taste."],
-  Berries: ["Red or dark berries, like jam or cranberry.", "Often in sherry-cask and rye whiskies."],
-  "Dried fruit": ["Raisin, fig or date: rich and concentrated.", "Typical of sherry-matured whiskies, on the nose and taste."],
-  Banana: ["Ripe banana or banana bread.", "Sometimes a young, fermentation-led note on the nose."],
-  Vanilla: ["Soft, creamy sweetness, like custard or ice cream.", "Common from oak casks, especially bourbon barrels."],
-  Caramel: ["Cooked sugar, a little richer than vanilla.", "Often mid-taste."],
-  Honey: ["Floral, golden sweetness.", "Often on the nose and the finish."],
-  Toffee: ["Thick, chewy, buttery sugar.", "Often on the taste, with a long sweet finish."],
-  Maple: ["Syrupy sweetness with a woody edge.", "Common in bourbon and rye, on the nose and taste."],
-  Butterscotch: ["Buttery caramel with a hint of salt.", "Often noticed in the middle of the taste."],
-  Cinnamon: ["Warm, sweet baking spice.", "Common in bourbon and rye. A gentle warmth on the finish."],
-  "Black pepper": ["A dry tingle on the tongue.", "Common in rye, often on the finish."],
-  Clove: ["Sharp, warming, almost medicinal sweetness.", "Often a nose note in sherried and older whiskies."],
-  Ginger: ["Warm and zesty, with a slight bite.", "Often on the taste, as a lively kick."],
-  Nutmeg: ["Soft, warm, slightly nutty spice.", "A light nose note, often alongside vanilla."],
-  Oak: ["The classic barrel note: dry, slightly bitter, like sawdust.", "Stronger in older whiskies, often on the finish."],
-  Cedar: ["Dry, aromatic wood, like a pencil or cigar box.", "On the nose, in older or longer-aged whiskies."],
-  Tobacco: ["Dry leaf, like pipe tobacco.", "Often a nose note in older, sherry-cask whiskies."],
-  Leather: ["Rich, dark and slightly dry, like an old saddle.", "Noticed on the taste and finish in mature whiskies."],
-  "Charred wood": ["Toasted, burnt wood, like a campfire log.", "Bourbon barrels are charred, so common in bourbon."],
-  Peat: ["Earthy, medicinal smoke, like burning damp earth.", "Strong in Islay whiskies, on the nose first."],
-  Bonfire: ["Light, sweet wood smoke.", "Often a gentle note rather than an overpowering one."],
-  Char: ["A burnt, toasty edge, like toast or grilled food.", "Common on the taste, from charred barrels."],
-  Ash: ["Dry and dusty, like a cold fireplace.", "Often lingers on the finish."],
-  Brine: ["Salty, like sea air or a pinch of sea salt.", "Common in coastal whiskies, on the nose and finish."]
+  Lemon: ["Sharp, clean acidity, like fresh juice or zest.", "Mostly on the nose. Comes from fermentation esters and light, clean spirit, common in young, unpeated malts and grain-led whiskies."],
+  Orange: ["Rounder and sweeter than lemon, like juice or marmalade.", "Nose and early palate. Often from sherry or other wine casks, or from sweet oak compounds. Lighter versions come from fruity fermentation esters."],
+  Grapefruit: ["Tart, with a slight bitterness.", "Often late on the palate and finish. Linked to fruity yeast esters in young whisky and to bitter oak tannins from the cask."],
+  "Orange peel": ["Aromatic, slightly bitter oils, like fresh zest.", "Nose and finish. Linked to new charred oak such as bourbon barrels, where maturation builds zesty, slightly bitter oak compounds."],
+  Lime: ["Sharp, green and fresh.", "A fresh edge on the nose. Typically from light, clean distillate and fermentation esters in younger or lightly casked whiskies."],
+  Apple: ["Crisp green apple or baked apple.", "Mainly on the nose. Produced by esters made during fermentation, and kept in the spirit by copper contact in pot stills."],
+  Pear: ["Soft, juicy and gently sweet, like pear drops.", "Nose, sometimes sweet on the palate. Fermentation esters (pear-drop character) from yeast, kept in lighter spirit from refill or ex-bourbon casks."],
+  "Stone fruit": ["Peach, apricot or plum: juicy and soft.", "Mid-palate. From fruity fermentation esters and from time in wood, where spirit and cask interact over the years."],
+  Berries: ["Red or dark berries, like jam or cranberry.", "Nose and palate. Often from sherry or red-wine cask maturation, or from rye grain in rye whiskey."],
+  "Dried fruit": ["Raisin, fig or date: rich and concentrated.", "Nose and palate. Typical of sherry-cask maturation, where the wood and the wine it held add raisin, fig and date character over long ageing."],
+  Banana: ["Ripe banana or banana bread.", "Nose, mostly in young whiskies. Caused by fermentation esters, shaped by yeast type and fermentation conditions."],
+  Vanilla: ["Soft, creamy sweetness, like custard or ice cream.", "Nose and palate. Vanillin from oak, strongest in new charred oak and ex-bourbon casks, and building with time in the cask."],
+  Caramel: ["Cooked sugar, a little richer than vanilla.", "Mid-palate. From sugars in toasted and charred oak during maturation. Added caramel colouring (E150a) is for shade, not flavour."],
+  Honey: ["Floral, golden sweetness.", "Nose and finish. Linked to malted barley sweetness, fermentation esters and floral notes that develop in refill or bourbon casks."],
+  Toffee: ["Thick, chewy, buttery sugar.", "Palate and finish. From toasted cask wood and long maturation, plus the sweetness of malted barley or corn."],
+  Maple: ["Syrupy sweetness with a woody edge.", "Nose and palate. From oak sugars in new charred oak, and from the corn and rye grain used in bourbon and rye whiskey."],
+  Butterscotch: ["Buttery caramel with a hint of salt.", "Middle of the palate. Linked to buttery fermentation by-products and to sweet oak notes."],
+  Cinnamon: ["Warm, sweet baking spice.", "Palate and finish. From oak spice compounds, and from rye grain, which adds spice in bourbon and rye whiskey."],
+  "Black pepper": ["A dry tingle on the tongue.", "Palate and finish. Mainly from rye grain in the mash bill, with help from oak tannins and young spirit."],
+  Clove: ["Sharp, warming, almost medicinal sweetness.", "Nose in sherried and older whiskies. Eugenol from oak, especially in European oak and sherry-seasoned casks, gives clove character."],
+  Ginger: ["Warm and zesty, with a slight bite.", "Palate. From spicy oak and rye grain, and from the lively sharpness of young spirit."],
+  Nutmeg: ["Soft, warm, slightly nutty spice.", "A light nose note. From oak spice compounds that develop during maturation, often alongside vanilla."],
+  Oak: ["The classic barrel note: dry, slightly bitter, like sawdust.", "Strongest on the finish. From the cask itself: tannins and wood extracts rise with age, and depend on cask size and previous use."],
+  Cedar: ["Dry, aromatic wood, like a pencil or cigar box.", "Nose in older whiskies. Dry, aromatic wood extracts from long maturation, often in European oak or refill sherry casks."],
+  Tobacco: ["Dry leaf, like pipe tobacco.", "Nose in older whiskies. Develops during long maturation, particularly in sherry-seasoned casks, from oak and slow oxidation."],
+  Leather: ["Rich, dark and slightly dry, like an old saddle.", "Palate and finish in mature whiskies. Comes from long cask ageing and slow oxidation, especially in sherry casks."],
+  "Charred wood": ["Toasted, burnt wood, like a campfire log.", "Nose and palate. From the charred inside of the cask: burning the oak creates toasted, smoky compounds, central to bourbon."],
+  Peat: ["Earthy, medicinal smoke, like burning damp earth.", "Nose first, then palate. Comes from drying malted barley over burning peat during malting. Phenols in the smoke carry into the spirit."],
+  Bonfire: ["Light, sweet wood smoke.", "Nose and palate. A lighter smoke, from malt dried over wood or peat smoke, or from heavily charred casks."],
+  Char: ["A burnt, toasty edge, like toast or grilled food.", "Palate. A direct result of the cask's charred inner surface, as in bourbon barrels, or of heavily toasted oak."],
+  Ash: ["Dry and dusty, like a cold fireplace.", "Often on the finish. Linked to peat smoke residue from the malt and to the dry tannins of charred wood."],
+  Brine: ["Salty, like sea air or a pinch of sea salt.", "Nose and finish. Often linked to coastal warehouses, though how much sea air contributes is debated. It is not caused by smoke."]
 };
 const SECTIONS = [
   { k: "appearance", t: "Appearance", g: [["Color", 1, ["Pale straw", "Gold", "Amber", "Copper", "Mahogany"]], ["Viscosity", 1, ["Thin", "Medium", "Oily"]]] },
@@ -632,7 +554,7 @@ if (LOCAL) {
 /* ---------- State and helpers ---------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const VERSION = "3.28";
+const VERSION = "3.29";
 let gTab = "cat", gSel = null, gDet = null, cA = "", cB = "";
 let notes = [], cat = "All", q = "", view = "coll", draft = null, pending = null, editing = false, step = 0;
 let photoCrop = null;
@@ -766,8 +688,9 @@ const REGION_DATA = {
 };
 
 const PRODUCTION_STAGES = [
-  {id:"grain",title:"Grain & malting",short:"The raw materials set the starting point.",body:["Whisky begins with cereal grains. Barley, corn, rye and wheat are the most common; the recipe is called the mash bill or grist, depending on the stage and local usage.","For malt whisky, barley is soaked and allowed to germinate. This develops enzymes that later convert grain starch into fermentable sugars. The germination is stopped by drying the malt.","Peated malt is dried using smoke from burning peat. Phenolic smoke compounds cling to the malt and can carry through into the finished whisky. Peat level is a choice, not an automatic feature of every distillery in a region."] ,terms:"Malted barley · Unmalted barley · Peat · Mash bill"},
-  {id:"mashing",title:"Milling & mashing",short:"Starch is made accessible and converted to sugar.",body:["The grain is milled to a coarse meal. Malted barley is commonly milled into grist; corn and other grains may need cooking to make their starch available.","The milled grain is mixed with hot water in a mash tun or cooker. Enzymes in malt convert starch into sugars. The sweet liquid drawn off is called wort; some processes also retain solids in the fermenting mixture.","The grain recipe affects the spirit’s foundations. Corn can bring sweetness and body, rye can contribute peppery spice, and malted barley provides enzymes as well as cereal character."],terms:"Grist · Mash tun · Wort · Mash bill"},
+  {id:"grain",title:"Grain",short:"Cereals set the starting point.",body:["Whisky starts with cereal grains. Barley, corn, rye and wheat are the most common. The recipe is called the mash bill, or grist once milled.","Malted barley is used in every malt whisky and in most other styles, because it supplies the enzymes that turn starch into sugar. Corn, rye and wheat are normally used unmalted.","Each grain adds something: corn brings sweetness and body, rye peppery spice, wheat softness, and barley cereal and biscuit notes."],terms:"Barley · Corn · Rye · Wheat · Mash bill"},
+  {id:"malting",title:"Malting & drying",short:"Barley is germinated, then dried to stop it.",body:["Malting prepares grain to make sugar. Only malted grain goes through it, and in practice that is almost always barley. It is not a different process for barley versus other grains: malted barley is also used to help convert the starch in unmalted grains.","Soaking and germination: the barley is soaked in water (steeping) for a day or two, then spread out to germinate for several days. Germination creates enzymes and loosens the starch inside each grain. Unmalted grains such as corn, rye and wheat are not germinated.","Drying (kilning): warm air stops germination, so the starch and enzymes are kept for later. Dry malt is also stable to store and easy to mill.","Drying method changes flavour. Hot air alone gives clean, unsmoked malt. Burning peat in the kiln adds peat smoke (phenols), strongest in Islay-style malts. Some producers use wood smoke such as beech or oak, usually lighter and sweeter."],terms:"Steeping · Germination · Kilning · Peat · Phenols"},
+  {id:"mashing",title:"Milling & mashing",short:"The step every whisky shares: grain meets hot water.",body:["All grains, malted or not, are milled and mixed with hot water. The idea is the same for every whisky. What differs is how the starch is made available.","Malted barley is milled to grist and mashed in a mash tun. Its own enzymes convert starch to sugar, giving a sweet liquid called wort.","Unmalted grains are usually cooked first to open up their starch, then cooled and combined with malted barley (or sometimes added enzymes) so conversion can happen. Some processes keep the grain solids in the fermenting mixture instead of drawing off clear wort.","The recipe matters: a Scotch malt is 100% malted barley, while bourbon is at least 51% corn."],terms:"Grist · Mash tun · Wort · Cooking · Mash bill"},
   {id:"fermentation",title:"Fermentation",short:"Yeast turns sugars into alcohol and creates flavour compounds.",body:["The wort or mash is cooled and yeast is added. Yeast consumes fermentable sugars, producing alcohol, carbon dioxide and flavour compounds such as esters.","Fermentation takes place in vessels often called washbacks or fermenters. Time, yeast strain, temperature and vessel material all influence the wash and the flavours that may carry into the spirit.","Sour mash is a process used in many American whiskey distilleries: a portion of acidic liquid from a previous distillation is added to the next mash. It helps control acidity and supports consistency; it does not mean the whiskey is sour."],terms:"Yeast · Wash · Washback · Esters · Sour mash"},
   {id:"distillation",title:"Distillation",short:"Alcohol and aroma compounds are concentrated and shaped.",body:["The fermented wash is heated in a still. Alcohol and volatile compounds vaporise, travel through the still and condenser, and are collected as a stronger spirit.","Pot stills are batch-operated and are associated with many malt and pot-still whiskey traditions. Column stills operate continuously and are widely used for grain whiskey and bourbon. Still shape, heating, reflux and the distiller’s cuts influence the spirit’s weight and character.","Scotch malt whisky is commonly distilled twice, while many Irish whiskeys are distilled three times. These are common traditions rather than universal rules. Irish single pot still whiskey combines malted and unmalted barley and is distilled in pot stills."],terms:"Pot still · Column still · Reflux · Spirit cut · Double / triple distillation"},
   {id:"maturation",title:"Maturation & casks",short:"Time in wood transforms the new spirit.",body:["Newly distilled spirit is filled into casks and left to mature. Wood contributes flavour and colour, while oxygen, evaporation and the local warehouse climate affect how the spirit develops.","Used bourbon barrels can bring vanilla, coconut and gentle oak. Sherry-seasoned casks may contribute dried fruit, nuts and spice. New charred oak, required for bourbon, can add stronger vanilla, caramel, toast and tannin notes.","Cask size, previous contents, the wood itself, warehouse position and climate all matter. A longer age does not automatically mean a better whisky; it means the whisky has spent longer maturing in wood.","A cask finish is a further period in a different cask after the main maturation. Common examples include port, wine, rum or sherry casks."],terms:"New make spirit · Bourbon cask · Sherry cask · Cask strength · Angel’s share · Finish"},
@@ -797,7 +720,7 @@ function learnHub() {
     ["styles","Whisky Styles","Understand the names and categories on whisky labels.",HUB_ART.styles,"04"],
     ["water","Adding Water","A guide to the effects of adding water to whisky.",HUB_ART.water,"05"]
   ];
-  return `<div class="learn-hub-head"><span class="eyebrow">THE WHISKY LIBRARY</span><h2>Learn & Explore</h2><p>A field guide to the flavours, places, methods and styles behind the whiskies you taste.</p></div><div class="learn-grid">${cards.map(([id,title,desc,art,num])=>`<button class="learn-card ${id === "water" ? "learn-card-water" : ""}" data-lesson="${id}"><span class="learn-number">${num}</span><span class="learn-art">${art}</span><span class="learn-card-title">${title}</span><span class="learn-card-copy">${desc}</span><span class="learn-card-link">${id === "water" ? "Coming soon" : "Explore"} <span aria-hidden="true">↗</span></span></button>`).join("")}</div><p class="learn-footnote">Start anywhere. Each topic begins with a quick overview and opens into more detail as you explore.</p>`;
+  return `<div class="learn-hub-head"><span class="eyebrow">THE WHISKY LIBRARY</span><h2>Learn & Explore</h2><p>A field guide to the flavours, places, methods and styles behind the whiskies you taste.</p></div><div class="learn-grid">${cards.map(([id,title,desc,art,num])=>`<button class="learn-card ${id === "water" ? "learn-card-water" : ""}" data-lesson="${id}"><span class="learn-number">${num}</span><span class="learn-art">${art}</span><span class="learn-card-title">${title}</span><span class="learn-card-copy">${desc}</span><span class="learn-card-link">${"Explore"} <span aria-hidden="true">↗</span></span></button>`).join("")}</div><p class="learn-footnote">Start anywhere. Each topic begins with a quick overview and opens into more detail as you explore.</p>`;
 }
 function learnTop(title, desc, section) {
   return `<div class="learn-top"><button class="learn-back" data-learn-home>‹ Learning Library</button><span class="eyebrow">${section}</span><h2>${title}</h2><p>${desc}</p></div>`;
@@ -805,12 +728,18 @@ function learnTop(title, desc, section) {
 function flavoursPage() {
   if (flavourCategory) {
     const desc = GUIDE.find(x=>x[0]===flavourCategory)?.[1] || "Explore this flavour family.";
-    return `${learnTop(flavourCategory,desc,"FLAVOURS")}<button class="text-link learn-inline-actions" data-flavour-back>‹ All flavour categories</button><div class="learn-note">Think of these as tasting references, not ingredients. A descriptor is useful when it reminds you of something you can recognise.</div><div class="descriptor-list">${SPEC[flavourCategory].map(n=>{const active=flavourDescriptor===n;const d=DETAIL[n]||[];return `<div class="descriptor-card ${active?"expanded":""}"><button class="descriptor-toggle" data-flavour-note="${esc(n)}" aria-expanded="${active}"><span><b>${esc(n)}</b><small>${esc(d[0]||"")}</small></span><span class="descriptor-plus">${active?"−":"+"}</span></button>${active?`<div class="descriptor-detail"><p><b>What to picture</b><br>${esc(d[0]||"")}</p><p><b>Where it may appear</b><br>${esc(d[1]||"It can appear differently from one whisky to another.")}</p>${FLAVOUR_COMPARE[n]?`<p><b>Useful distinction</b><br>${esc(FLAVOUR_COMPARE[n])}</p>`:""}<p class="descriptor-tip">Try smelling first, then tasting. The same note may feel different on the nose, palate or finish.</p></div>`:""}</div>`}).join("")}</div>`;
+    return `${learnTop(flavourCategory,desc,"FLAVOURS")}<button class="text-link learn-inline-actions" data-flavour-back>‹ All flavour categories</button><div class="learn-note">Think of these as tasting references, not ingredients. A descriptor is useful when it reminds you of something you can recognise.</div><div class="descriptor-list">${SPEC[flavourCategory].map(n=>{const active=flavourDescriptor===n;const d=DETAIL[n]||[];return `<div class="descriptor-card ${active?"expanded":""}"><button class="descriptor-toggle" data-flavour-note="${esc(n)}" aria-expanded="${active}"><span><b>${esc(n)}</b><small>${esc(d[0]||"")}</small></span><span class="descriptor-plus">${active?"−":"+"}</span></button>${active?`<div class="descriptor-detail"><p><b>Where it may appear</b><br>${esc(d[1]||"It can appear differently from one whisky to another.")}</p>${FLAVOUR_COMPARE[n]?`<p><b>Useful distinction</b><br>${esc(FLAVOUR_COMPARE[n])}</p>`:""}<p class="descriptor-tip">Try smelling first, then tasting. The same note may feel different on the nose, palate or finish.</p></div>`:""}</div>`}).join("")}</div>`;
   }
   return `${learnTop("Flavours","Learn to recognise and describe the aromas and tastes you notice in a glass.","FLAVOURS")}<div class="learn-note"><b>There is no test.</b> These descriptors are a shared vocabulary. Use the words that make sense to you, and do not worry about finding every note.</div><div class="flavour-grid">${GUIDE.map(([n,d])=>`<button class="flavour-cat-card" data-flavour-cat="${n}" style="--cat-tint:${CATEGORY_TINT[n]}"><span class="flavour-art">${CAT_ART[n]}</span><span class="flavour-cat-title">${n}</span><span class="flavour-cat-copy">${d}</span><span class="flavour-count">${SPEC[n].length} descriptors <span>›</span></span></button>`).join("")}</div>`;
 }
-function waterPlaceholderPage() {
-  return `${learnTop("Adding Water","A future guide to exploring what changes when water is added to whisky.","WATER")}<div class="water-placeholder"><span class="water-placeholder-art">${HUB_ART.water}</span><h3>Coming in a future update</h3><p>This section will explore how adding water can affect aroma, flavour and the overall tasting experience.</p></div>`;
+const WATER_TOPICS = [
+  {id:"abv",title:"Do a few drops change the strength?",short:"The numbers behind the advice.",body:["Not noticeably. Figures below assume a 46% whisky and a 3 oz (about 90 ml) pour. A drop is roughly 0.05 ml, so four drops lower the strength by about 0.1 point, which no one can taste.","One teaspoon (about 5 ml) brings it to roughly 43.6%. Two teaspoons gives about 41.4%. So when guides say a few drops, they usually mean a teaspoon or more.","For comparison, many bottles are sold at 40% to 43%, so a teaspoon moves a cask-strength whisky into that range."]},
+  {id:"why",title:"Why might it change the aroma?",short:"What water is thought to do.",body:["Lower strength means less alcohol burn and numbing, so subtle flavours are easier to notice.","A commonly cited idea is that some aroma compounds move towards the surface of the glass as the alcohol level drops. Researchers still debate how large the effect is.","Results differ by whisky. Cask-strength and heavily peated whiskies often change most, while a 40% whisky can turn flat."]},
+  {id:"lasting",title:"Does the effect last?",short:"Why people disagree.",body:["Dilution is immediate and cannot be undone. Some people feel the change fades as the glass sits, others notice it through the whole pour.","Part of the disagreement is that tasters add different amounts, and expectations influence what we notice. Treat it as a personal preference, not a rule."]},
+  {id:"try",title:"How to try it",short:"A simple method.",body:["Taste the whisky neat first and note it.","Add about a quarter teaspoon, swirl gently, and smell and taste again. Add more only if you want to keep exploring.","Record the amount and the change in the Water step of a tasting, so you can compare bottles later."]}
+];
+function waterPage() {
+  return `${learnTop("Adding Water","What changes when water is added, and how much it takes.","WATER")}<div class="stage-list">${WATER_TOPICS.map(s=>{const active=openLearnItems.has("water:"+s.id);return `<article class="stage-card ${active?"expanded":""}"><button class="stage-toggle" data-expand="water:${s.id}" aria-expanded="${active}"><span class="stage-title-wrap"><b>${s.title}</b><small>${s.short}</small></span><span class="stage-plus">${active?"−":"+"}</span></button>${active?`<div class="stage-detail">${s.body.map(p=>`<p>${esc(p)}</p>`).join("")}</div>`:""}</article>`}).join("")}</div><p class="learn-footnote">Strength figures are approximate and assume plain water added to 46% whisky.</p>`;
 }
 function regionsPage() {
   const country=REGION_DATA[learnCountry], area=country.areas.find(a=>a.id===learnRegion);
@@ -832,7 +761,7 @@ function learn() {
   if (learnSection === "regions") return regionsPage();
   if (learnSection === "production") return productionPage();
   if (learnSection === "styles") return stylesPage();
-  if (learnSection === "water") return waterPlaceholderPage();
+  if (learnSection === "water") return waterPage();
   return learnHub();
 }
 
@@ -840,7 +769,7 @@ function learn() {
 function linksPage() {
   const activeLinks = APP_LINKS.filter(link => link.active && link.description.trim() && /^https?:\/\//i.test(link.url.trim()));
   return `<div class="section-page-head">
-    <div class="notebook-brand"><span>WHISKY NOTEBOOK</span><small>v3.28</small></div><h2>Links</h2>
+    <div class="notebook-brand"><span>WHISKY NOTEBOOK</span><small>v${VERSION}</small></div><h2>Links</h2>
     <p>Useful external resources for whisky research and bottle information.</p>
   </div>
   <div class="app-links-list">${activeLinks.length ? activeLinks.map(link => `<a class="app-link-card" href="${esc(link.url.trim())}" target="_blank" rel="noopener noreferrer"><span class="app-link-icon" aria-hidden="true">↗</span><span><b>${esc(link.description.trim())}</b><small>${esc(link.url.trim())}</small></span></a>`).join("") : `<p class="empty">No links have been added yet.</p>`}</div>
@@ -848,7 +777,7 @@ function linksPage() {
 }
 
 const coll = () => `<div class="section-page-head">
-    <div class="notebook-brand"><span>WHISKY NOTEBOOK</span><small>v3.28</small></div><h2>My Tastings</h2>
+    <div class="notebook-brand"><span>WHISKY NOTEBOOK</span><small>v${VERSION}</small></div><h2>My Tastings</h2>
     <p>Your bottles and tasting notes, gathered in one place.</p>
   </div>
   <div class="collection-actions"><button class="btn" data-a="new">＋ New Tasting</button><button class="btn ghost" data-v="cmp">Compare Bottles</button></div>
@@ -864,7 +793,7 @@ function listHtml() {
         <span class="tasting-row-photo">${n.thumb ? `<img src="${n.thumb}" alt="">` : `<span aria-hidden="true">◈</span>`}</span>
         <span class="tasting-row-info"><span class="tasting-row-kicker">${esc(n.category || "Whisky")}${n.region ? " · " + esc(n.region) : ""}</span>
           <b>${esc(n.name || "Untitled bottle")}</b><small>${esc(n.distillery || "Distillery not recorded")}${n.abv ? " · " + esc(n.abv) + "% ABV" : ""}</small>
-          <span class="tasting-row-rating">${stars(n.rating || 0)} <small>${n.rating ? esc(n.rating) + " / 5" : "Not rated"}</small></span>
+          <span class="tasting-row-rating">${stars(n.rating || 0)} <small>${n.rating ? esc(n.rating) + " / 5" : "Not rated"}</small></span>${flavourProfile(n) ? `<span class="tasting-row-profile">${esc(flavourProfile(n))}</span>` : ""}
         </span>
       </button>${n.favourite ? '<span class="tasting-row-favourite" aria-label="Favourite">♥</span>' : ""}
       <span class="tasting-row-arrow" aria-hidden="true">›</span>
@@ -942,12 +871,24 @@ function part(i, ed) {
   return `<section class="entry-panel tasting-step-panel">${entryPanelHead(s.t, `${String(i + 1).padStart(2, "0")} · TASTING`, s.k === "appearance" ? "Note the whisky's colour and the way it moves in the glass." : s.k === "nose" ? "Record the aromas you notice before tasting." : s.k === "taste" ? "Record the flavours, texture and character on the palate." : "Note how the flavour develops and how long it lasts.")}${groupContent}${noteField}</section>`;
 }
 
+function flavourProfile(n) {
+  const list = a => a.length > 1 ? a.slice(0, -1).join(", ") + " and " + a[a.length - 1] : a[0] || "";
+  const pick = k => { const g = n.tags || {}; const sp = Object.entries(g).filter(([x]) => x.startsWith(k + "|") && x.endsWith(" notes")).flatMap(([, v]) => v); const r = [...new Set(sp.length ? sp : (g[k + "|Character"] || []))].slice(0, 3).map(x => x.toLowerCase()); r.cat = !sp.length; return r; };
+  const col = ((n.tags || {})["appearance|Color"] || [])[0], len = ((n.tags || {})["finish|Length"] || [])[0];
+  const nose = pick("nose"), taste = pick("taste"), fin = pick("finish"), parts = [];
+  if (nose.length) parts.push(list(nose) + (nose.cat ? " notes" : "") + " on the nose");
+  if (taste.length) parts.push(list(taste) + (taste.cat ? " notes" : "") + " on the palate");
+  if (len || fin.length) parts.push("a " + (len ? len.toLowerCase() + " " : "") + "finish" + (fin.length ? " of " + list(fin) + (fin.cat ? " notes" : "") : ""));
+  if (!col && !parts.length) return "";
+  const c = col ? col.toLowerCase() : "";
+  return (c ? (/^[aeiou]/.test(c) ? "An " : "A ") + c + " whisky" : "A whisky") + (parts.length ? " with " + list(parts) : "") + ".";
+}
 function noteView() {
   const n = draft, saved = notes.some(x => x.id === n.id), last = STEPS.length - 1, waterStep = STEPS.length - 2;
   if (!editing) {
     const body = STEPS.map((t, i) => part(i, false)).join("");
     return `<div class="tasting-page-head"><span class="eyebrow">TASTING RECORD</span><div class="dhead"><div><h2>${esc(n.name || "Untitled bottle")}</h2><p>${esc(n.distillery || n.category || "Whisky tasting")}</p></div><button class="btn" data-a="edit">Edit</button></div></div>
-      <div class="tasting-record-body"><fieldset class="lock" disabled>${body}</fieldset></div>${saved ? `<div class="record-actions"><button class="btn danger" data-a="del">Delete tasting</button></div>` : ""}`;
+      ${flavourProfile(n) ? `<section class="flavour-profile"><span class="eyebrow">FLAVOUR PROFILE</span><p>${esc(flavourProfile(n))}</p></section>` : ""}<div class="tasting-record-body"><fieldset class="lock" disabled>${body}</fieldset></div>${saved ? `<div class="record-actions"><button class="btn danger" data-a="del">Delete tasting</button></div>` : ""}`;
   }
   const stepLabels = STEPS.map((t, i) => t === "Water (optional)" ? "Water · optional" : t);
   return `<div class="tasting-page-head"><span class="eyebrow">TASTING NOTE ${saved ? "· EDITING" : "· NEW ENTRY"}</span><div class="dhead"><div><h2>${saved ? "Edit Tasting" : "New Tasting"}</h2><p>Work through the steps, or move between them as you like.</p></div><span class="tasting-head-actions"><button class="heart ${n.favourite ? "on" : ""}" type="button" data-favd="1" aria-label="Favourite">♥</button><button class="btn ghost" data-a="cancel">Cancel</button></span></div></div>
@@ -956,7 +897,8 @@ function noteView() {
     <div class="acts pin tasting-step-actions">${step ? `<button class="btn ghost" data-a="back">Back</button>` : ""}${step === waterStep ? `<button class="btn ghost" data-a="skipWater">Skip Water</button>` : step < last ? `<button class="btn" data-a="next">Next</button>` : ""}<button class="btn ${step < last ? "ghost" : ""}" data-a="save">Save Tasting</button></div>`;
 }
 
-function render() {
+function render(keep) {
+  const y = window.scrollY;
   const page = $("#page");
   page.innerHTML = ({ coll, learn, cmp, links: linksPage, note: noteView })[view]();
   ["learning-view", "collection-view", "tasting-view", "compare-view"].forEach(c => page.classList.remove(c));
@@ -967,7 +909,7 @@ function render() {
   document.querySelectorAll(".bar button").forEach(b => b.classList.toggle("on", b.dataset.v === (view === "note" ? "coll" : view)));
   if (view === "note" && editing && step === 0) bindPhoto();
   if (guideOn) paintGuide(); else if ($("#guideov")) $("#guideov").hidden = true;
-  window.scrollTo(0, 0);
+  window.scrollTo(0, keep ? y : 0);
   keepActiveStepVisible();
 }
 function keepActiveStepVisible() {
@@ -1108,7 +1050,7 @@ function applyPhotoCrop() {
   out.getContext("2d", { alpha: false }).drawImage(bitmap, sx, sy, sw, sh, 0, 0, out.width, out.height);
   pending = out.toDataURL("image/jpeg", 0.86);
   const thumb = document.createElement("canvas");
-  thumb.width = 150; thumb.height = 200;
+  thumb.width = 100; thumb.height = 200;
   thumb.getContext("2d", { alpha: false }).drawImage(out, 0, 0, thumb.width, thumb.height);
   draft.thumb = thumb.toDataURL("image/jpeg", 0.72);
   const preview = $("#drop");
@@ -1165,7 +1107,10 @@ function addFlavourDescriptor(sectionKey, category, descriptor) {
   if (field) field.value = draft.notes[sectionKey];
   return !alreadyAdded;
 }
-function paintGuide() {
+function paintGuide(keep) {
+  const o = $("#guideov"); const st = o ? o.scrollTop : 0; paintGuideInner(); if (keep && o) o.scrollTop = st;
+}
+function paintGuideInner() {
   const o = $("#guideov");
   if (!o) return;
   o.hidden = !guideOn;
@@ -1181,7 +1126,7 @@ function paintGuide() {
     const active = guideDescriptor === name;
     const added = descriptorIsInNotes(guideSection, name);
     const d = DETAIL[name] || [];
-    return `<article class="descriptor-card ${active ? "expanded" : ""}"><button class="descriptor-toggle" data-guide-desc="${esc(name)}" aria-expanded="${active}"><span><b>${esc(name)}</b><small>${esc(d[0] || "")}</small></span><span class="descriptor-plus">${active ? "−" : "+"}</span></button>${active ? `<div class="descriptor-detail"><p><b>What to picture</b><br>${esc(d[0] || "")}</p><p><b>Where it may appear</b><br>${esc(d[1] || "It can appear differently from one whisky to another.")}</p>${FLAVOUR_COMPARE[name] ? `<p><b>Useful distinction</b><br>${esc(FLAVOUR_COMPARE[name])}</p>` : ""}<button class="btn guide-add-button ${added ? "is-added" : ""}" data-guide-add="${esc(name)}" data-guide-category="${esc(guideCategory)}" aria-pressed="${added}">${added ? "Remove from notes −" : `Add ${esc(name)} to ${sectionName}`}</button></div>` : ""}</article>`;
+    return `<article class="descriptor-card ${active ? "expanded" : ""}"><button class="descriptor-toggle" data-guide-desc="${esc(name)}" aria-expanded="${active}"><span><b>${esc(name)}</b><small>${esc(d[0] || "")}</small></span><span class="descriptor-plus">${active ? "−" : "+"}</span></button>${active ? `<div class="descriptor-detail"><p><b>Where it may appear</b><br>${esc(d[1] || "It can appear differently from one whisky to another.")}</p>${FLAVOUR_COMPARE[name] ? `<p><b>Useful distinction</b><br>${esc(FLAVOUR_COMPARE[name])}</p>` : ""}<button class="btn guide-add-button ${added ? "is-added" : ""}" data-guide-add="${esc(name)}" data-guide-category="${esc(guideCategory)}" aria-pressed="${added}">${added ? "Remove from notes −" : `Add ${esc(name)} to ${sectionName}`}</button></div>` : ""}</article>`;
   }).join("");
   o.innerHTML = `${intro}<button class="text-link learn-inline-actions" data-guide-back>‹ All flavour categories</button><div class="guide-category-intro"><span class="flavour-art">${CAT_ART[guideCategory]}</span><div><h3>${guideCategory}</h3><p>${esc(introText)}</p></div></div><div class="descriptor-list">${descriptorCards}</div><p class="learn-footnote">Descriptors are suggestions, not a checklist. Add only the words that match what you notice.</p></div>`;
 }
@@ -1257,20 +1202,20 @@ function onClick(e) {
   if (t.closest("[data-learn-home]")) { learnSection = "hub"; flavourCategory = null; flavourDescriptor = null; learnRegion = null; openLearnItems.clear(); render(); return; }
   const fc = t.closest("[data-flavour-cat]"); if (fc) { flavourCategory = fc.dataset.flavourCat; flavourDescriptor = null; render(); return; }
   if (t.closest("[data-flavour-back]")) { flavourCategory = null; flavourDescriptor = null; render(); return; }
-  const fd = t.closest("[data-flavour-note]"); if (fd) { flavourDescriptor = flavourDescriptor === fd.dataset.flavourNote ? null : fd.dataset.flavourNote; render(); return; }
+  const fd = t.closest("[data-flavour-note]"); if (fd) { flavourDescriptor = flavourDescriptor === fd.dataset.flavourNote ? null : fd.dataset.flavourNote; render(true); return; }
   const country = t.closest("[data-country]"); if (country) { learnCountry = country.dataset.country; learnRegion = null; render(); return; }
   const region = t.closest("[data-region]"); if (region) { learnRegion = region.dataset.region; render(); return; }
   if (t.closest("[data-region-back]")) { learnRegion = null; render(); return; }
-  const expand = t.closest("[data-expand]"); if (expand) { const key = expand.dataset.expand; openLearnItems.has(key) ? openLearnItems.delete(key) : openLearnItems.add(key); render(); return; }
+  const expand = t.closest("[data-expand]"); if (expand) { const key = expand.dataset.expand, was = openLearnItems.has(key); openLearnItems.clear(); if (!was) openLearnItems.add(key); render(true); return; }
   const guideOpen = t.closest('[data-a="guideOpen"]');
   if (guideOpen && editing) { guideSection = guideOpen.dataset.section; guideCategory = null; guideDescriptor = null; guideOn = true; paintGuide(); return; }
   const guideCat = t.closest("[data-guide-cat]"); if (guideCat) { guideCategory = guideCat.dataset.guideCat; guideDescriptor = null; paintGuide(); return; }
   if (t.closest("[data-guide-back]")) { guideCategory = null; guideDescriptor = null; paintGuide(); return; }
-  const guideDesc = t.closest("[data-guide-desc]"); if (guideDesc) { guideDescriptor = guideDescriptor === guideDesc.dataset.guideDesc ? null : guideDesc.dataset.guideDesc; paintGuide(); return; }
+  const guideDesc = t.closest("[data-guide-desc]"); if (guideDesc) { guideDescriptor = guideDescriptor === guideDesc.dataset.guideDesc ? null : guideDesc.dataset.guideDesc; paintGuide(true); return; }
   const guideAdd = t.closest("[data-guide-add]");
   if (guideAdd && editing) {
     const added = addFlavourDescriptor(guideSection, guideAdd.dataset.guideCategory, guideAdd.dataset.guideAdd);
-    paintGuide();
+    paintGuide(true);
     toast((added ? "Added to " : "Removed from ") + ({ nose: "Nose", taste: "Taste", finish: "Finish" })[guideSection] + " notes");
     return;
   }
