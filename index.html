@@ -1,10 +1,10 @@
 <!doctype html>
-<!-- Whisky Notes v3.31 -->
+<!-- Whisky Notes v3.32 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Whisky Notes v3.31</title>
+<title>Whisky Notes v3.32</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f1e6d2;--panel:#fbf6ea;--line:#dcc9aa;--ink:#3b2417;--mute:#5e4a37;--brown:#7a3d1c;--amber:#e3a03a;--cream:#f7eddb;--r:12px}
@@ -576,7 +576,7 @@ if (LOCAL) {
 /* ---------- State and helpers ---------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const VERSION = "3.31";
+const VERSION = "3.32";
 let gTab = "cat", gSel = null, gDet = null, cA = "", cB = "";
 let notes = [], cat = "All", q = "", view = "coll", draft = null, pending = null, editing = false, step = 0;
 let photoCrop = null;
@@ -928,11 +928,9 @@ function wishView() {
 }
 async function moveWish() {
   const w = draft;
-  if (!confirm("Start a new tasting from this bottle?")) return;
-  const remove = confirm("Remove it from the Wishlist once the tasting is saved?\n\nOK = remove it. Cancel = keep it on the Wishlist.");
   const photo = w.thumb ? await store.wphoto(w.id) : null;
   const n = { ...blank(), name: w.name, distillery: w.distillery, category: w.category, type: w.type, region: w.region, age: w.age, noAge: w.noAge, abv: w.abv, price: w.price, thumb: w.thumb };
-  wishRemoveOnSave = remove ? w.id : null;
+  wishRemoveOnSave = w.id;
   await openNote(n, true);
   if (photo) { pending = photo; const i = $("#pimg"); if (i) i.src = photo; }
 }
