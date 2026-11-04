@@ -1,10 +1,10 @@
 <!doctype html>
-<!-- Whisky Notes v3.30 -->
+<!-- Whisky Notes v3.31 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Whisky Notes v3.30</title>
+<title>Whisky Notes v3.31</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f1e6d2;--panel:#fbf6ea;--line:#dcc9aa;--ink:#3b2417;--mute:#5e4a37;--brown:#7a3d1c;--amber:#e3a03a;--cream:#f7eddb;--r:12px}
@@ -510,7 +510,7 @@ const WATER_SECTION = { k: "water", t: "Water", g: [["Effect on aroma", 0, ["Ope
 /* ---------- Storage: Firebase, or localStorage for testing ---------- */
 const LOCAL = FIREBASE_CONFIG.apiKey.startsWith("PASTE");
 const ls = k => JSON.parse(localStorage.getItem(k) || "{}");
-let store, auth, fb, unsub;
+let store, auth, fb, unsub, unsubW;
 
 if (LOCAL) {
   store = {
@@ -525,7 +525,19 @@ if (LOCAL) {
       const p = ls("dn_label_photos"); delete p[id]; localStorage.setItem("dn_label_photos", JSON.stringify(p));
       this.cb(Object.values(a));
     },
-    async photo(id) { return ls("dn_photos")[id] || null; }
+    async photo(id) { return ls("dn_photos")[id] || null; },
+    wlisten(cb) { this.wcb = cb; cb(Object.values(ls("dn_wish"))); },
+    async wsave(w, photo) {
+      const a = ls("dn_wish"); a[w.id] = w; localStorage.setItem("dn_wish", JSON.stringify(a));
+      if (photo) { const p = ls("dn_wphotos"); p[w.id] = photo; localStorage.setItem("dn_wphotos", JSON.stringify(p)); }
+      this.wcb(Object.values(a));
+    },
+    async wdel(id) {
+      const a = ls("dn_wish"); delete a[id]; localStorage.setItem("dn_wish", JSON.stringify(a));
+      const p = ls("dn_wphotos"); delete p[id]; localStorage.setItem("dn_wphotos", JSON.stringify(p));
+      this.wcb(Object.values(a));
+    },
+    async wphoto(id) { return ls("dn_wphotos")[id] || null; }
   };
 } else {
   const V = "10.12.2", B = "https://www.gstatic.com/firebasejs/" + V + "/";
@@ -547,22 +559,34 @@ if (LOCAL) {
       fs.deleteDoc(fs.doc(col("photos"), id)).catch(console.error);
       fs.deleteDoc(fs.doc(col("labelPhotos"), id)).catch(console.error);
     },
-    async photo(id) { const d = await fs.getDoc(fs.doc(col("photos"), id)); return d.exists() ? d.data().data : null; }
+    async photo(id) { const d = await fs.getDoc(fs.doc(col("photos"), id)); return d.exists() ? d.data().data : null; },
+    wlisten(cb) { return fs.onSnapshot(col("wishlist"), s => cb(s.docs.map(d => d.data()))); },
+    async wsave(w, photo) {
+      fs.setDoc(fs.doc(col("wishlist"), w.id), w).catch(console.error);
+      if (photo) fs.setDoc(fs.doc(col("wishlistPhotos"), w.id), { data: photo }).catch(console.error);
+    },
+    async wdel(id) {
+      fs.deleteDoc(fs.doc(col("wishlist"), id)).catch(console.error);
+      fs.deleteDoc(fs.doc(col("wishlistPhotos"), id)).catch(console.error);
+    },
+    async wphoto(id) { const d = await fs.getDoc(fs.doc(col("wishlistPhotos"), id)); return d.exists() ? d.data().data : null; }
   };
 }
 
 /* ---------- State and helpers ---------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const VERSION = "3.30";
+const VERSION = "3.31";
 let gTab = "cat", gSel = null, gDet = null, cA = "", cB = "";
 let notes = [], cat = "All", q = "", view = "coll", draft = null, pending = null, editing = false, step = 0;
 let photoCrop = null;
+let wishes = [], wishRemoveOnSave = null;
 const manualBottleFields = new Set();
 let guideOn = false, guideSection = "nose", guideCategory = null, guideDescriptor = null;
 const STEPS = ["Bottle", ...SECTIONS.map(s => s.t), "Water (optional)", "Rating"];
 const TABS = ["All", ...CATS, "Favourites"];
 const blank = () => ({ id: crypto.randomUUID(), name: "", distillery: "", category: "Scotch", type: "", region: "", age: "", noAge: false, abv: "", price: "", favourite: false, waterAmt: "", waterUnit: "tsp", tags: {}, other: {}, notes: {}, rating: 0, comments: "", thumb: "", updated: 0 });
+const blankWish = () => ({ id: crypto.randomUUID(), name: "", distillery: "", category: "Scotch", type: "", region: "", age: "", noAge: false, abv: "", price: "", where: "", thumb: "", updated: 0 });
 const getP = (o, p) => p.split(".").reduce((a, k) => a?.[k], o);
 const setP = (o, p, v) => { const ks = p.split("."), l = ks.pop(); ks.reduce((a, k) => a[k], o)[l] = v; };
 const stars = v => `<span class="stars">${[1, 2, 3, 4, 5].map(i => `<span class="s ${v >= i ? "f" : v >= i - .5 ? "h" : ""}">★</span>`).join("")}</span>`;
@@ -883,6 +907,36 @@ function flavourProfile(n) {
   const c = col ? col.toLowerCase() : "";
   return (c ? (/^[aeiou]/.test(c) ? "An " : "A ") + c + " whisky" : "A whisky") + (parts.length ? " with " + list(parts) : "") + ".";
 }
+const wishPage = () => `<div class="section-page-head"><div class="notebook-brand"><span>WHISKY NOTEBOOK</span><small>v${VERSION}</small></div><h2>Wishlist</h2><p>Bottles you want to try. Move one to a new tasting when you open it.</p></div>
+  <div class="collection-actions"><button class="btn" data-a="wnew">＋ Add to Wishlist</button></div>
+  <div class="tasting-list">${wishes.length ? [...wishes].sort((a, b) => b.updated - a.updated).map(w => `<article class="tasting-row-card"><button class="tasting-row-main" data-wid="${esc(w.id)}"><span class="tasting-row-photo">${w.thumb ? `<img src="${w.thumb}" alt="">` : `<span aria-hidden="true">◈</span>`}</span><span class="tasting-row-info"><span class="tasting-row-kicker">${esc(w.category || "Whisky")}${w.region ? " · " + esc(w.region) : ""}</span><b>${esc(w.name || "Untitled bottle")}</b><small>${esc(w.distillery || "Distillery not recorded")}${w.abv ? " · " + esc(w.abv) + "% ABV" : ""}${w.price ? " · " + esc(w.price) : ""}</small>${w.where ? `<span class="tasting-row-profile">${esc(w.where)}</span>` : ""}</span></button><span class="tasting-row-arrow" aria-hidden="true">›</span></article>`).join("") : `<p class="empty collection-empty">Your Wishlist is empty. Add a bottle you want to try.</p>`}</div>`;
+
+async function openWish(w, edit) {
+  draft = w; editing = edit; pending = null; view = "wnote"; render();
+  if (w.thumb) { const f = await store.wphoto(w.id); const i = $("#pimg"); if (f && i && draft?.id === w.id) i.src = f; }
+}
+function wishView() {
+  const w = draft;
+  const field = `<label class="fld">Where to find it / notes<textarea data-f="where">${esc(w.where)}</textarea></label>`;
+  if (!editing) return `<div class="tasting-page-head"><span class="eyebrow">WISHLIST BOTTLE</span><div class="dhead"><div><h2>${esc(w.name || "Untitled bottle")}</h2><p>${esc(w.distillery || w.category || "Wishlist bottle")}</p></div><button class="btn" data-a="wedit">Edit</button></div></div>
+    <div class="tasting-record-body"><fieldset class="lock" disabled>${part(0, false)}${w.where ? `<section class="entry-panel">${field}</section>` : ""}</fieldset></div>
+    <div class="acts"><button class="btn" data-a="wmove">Move to New Tasting</button></div><div class="record-actions"><button class="btn danger" data-a="wdel">Remove from Wishlist</button></div>`;
+  const saved = wishes.some(x => x.id === w.id);
+  return `<div class="tasting-page-head"><span class="eyebrow">WISHLIST ${saved ? "· EDITING" : "· NEW BOTTLE"}</span><div class="dhead"><div><h2>${saved ? "Edit Bottle" : "Add to Wishlist"}</h2><p>Basic bottle details. You can add the tasting later.</p></div><span class="tasting-head-actions"><button class="btn ghost" data-a="wcancel">Cancel</button></span></div></div>
+    ${part(0, true)}<section class="entry-panel">${field}</section>
+    <div class="acts pin tasting-step-actions"><button class="btn" data-a="wsave">Save to Wishlist</button></div>`;
+}
+async function moveWish() {
+  const w = draft;
+  if (!confirm("Start a new tasting from this bottle?")) return;
+  const remove = confirm("Remove it from the Wishlist once the tasting is saved?\n\nOK = remove it. Cancel = keep it on the Wishlist.");
+  const photo = w.thumb ? await store.wphoto(w.id) : null;
+  const n = { ...blank(), name: w.name, distillery: w.distillery, category: w.category, type: w.type, region: w.region, age: w.age, noAge: w.noAge, abv: w.abv, price: w.price, thumb: w.thumb };
+  wishRemoveOnSave = remove ? w.id : null;
+  await openNote(n, true);
+  if (photo) { pending = photo; const i = $("#pimg"); if (i) i.src = photo; }
+}
+
 function noteView() {
   const n = draft, saved = notes.some(x => x.id === n.id), last = STEPS.length - 1, waterStep = STEPS.length - 2;
   if (!editing) {
@@ -900,14 +954,14 @@ function noteView() {
 function render(keep) {
   const y = window.scrollY;
   const page = $("#page");
-  page.innerHTML = ({ coll, learn, cmp, links: linksPage, note: noteView })[view]();
+  page.innerHTML = ({ coll, wish: wishPage, learn, cmp, links: linksPage, note: noteView, wnote: wishView })[view]();
   ["learning-view", "collection-view", "tasting-view", "compare-view"].forEach(c => page.classList.remove(c));
   page.classList.toggle("learning-view", view === "learn");
   page.classList.toggle("collection-view", view === "coll");
-  page.classList.toggle("tasting-view", view === "note");
+  page.classList.toggle("tasting-view", view === "note" || view === "wnote");
   page.classList.toggle("compare-view", view === "cmp");
-  document.querySelectorAll(".bar button").forEach(b => b.classList.toggle("on", b.dataset.v === (view === "note" ? "coll" : view)));
-  if (view === "note" && editing && step === 0) bindPhoto();
+  document.querySelectorAll(".bar button").forEach(b => b.classList.toggle("on", b.dataset.v === (view === "note" ? "coll" : view === "wnote" ? "wish" : view)));
+  if ((view === "note" && editing && step === 0) || (view === "wnote" && editing)) bindPhoto();
   if (guideOn) paintGuide(); else if ($("#guideov")) $("#guideov").hidden = true;
   window.scrollTo(0, keep ? y : 0);
   keepActiveStepVisible();
@@ -1219,14 +1273,36 @@ function onClick(e) {
     toast((added ? "Added to " : "Removed from ") + ({ nose: "Nose", taste: "Taste", finish: "Finish" })[guideSection] + " notes");
     return;
   }
+  const wid = t.closest("[data-wid]")?.dataset.wid;
+  if (wid) { openWish({ ...blankWish(), ...structuredClone(wishes.find(x => x.id === wid)) }, false); return; }
   const id = t.closest("[data-id]")?.dataset.id;
   if (id) { openNote({ ...blank(), ...structuredClone(notes.find(n => n.id === id)) }, false); return; }
   const c = t.closest("[data-c]"); if (c) { cat = c.dataset.c; render(); return; }
   const v = t.closest("[data-v]");
-  if (v) { if (editing && !confirm("Discard unsaved changes?")) return; guideOn = false; editing = false; view = v.dataset.v; if (view !== "note") draft = null; if (view === "learn") { learnSection = "hub"; flavourCategory = null; flavourDescriptor = null; learnRegion = null; openLearnItems.clear(); } render(); return; }
+  if (v) { if (editing && !confirm("Discard unsaved changes?")) return; guideOn = false; editing = false; wishRemoveOnSave = null; view = v.dataset.v; if (view !== "note") draft = null; if (view === "learn") { learnSection = "hub"; flavourCategory = null; flavourDescriptor = null; learnRegion = null; openLearnItems.clear(); } render(); return; }
   const sp = t.closest("[data-step]"); if (sp) { step = +sp.dataset.step; render(); return; }
   const a = t.closest("[data-a]")?.dataset.a;
   if (a === "new") openNote(blank(), true);
+  if (a === "wnew") openWish(blankWish(), true);
+  if (a === "wedit") { editing = true; render(); }
+  if (a === "wmove") moveWish();
+  if (a === "wcancel") {
+    if (!confirm("Discard unsaved changes?")) return;
+    const o = wishes.find(x => x.id === draft.id);
+    if (o) openWish({ ...blankWish(), ...structuredClone(o) }, false); else { draft = null; editing = false; view = "wish"; render(); }
+  }
+  if (a === "wsave") {
+    if (!draft.name.trim()) { toast("Add a bottle name first"); return; }
+    draft.updated = Date.now();
+    store.wsave(draft, pending);
+    const copy = structuredClone(draft), i = wishes.findIndex(x => x.id === draft.id);
+    if (i < 0) wishes.push(copy); else wishes[i] = copy;
+    toast("Saved"); openWish(structuredClone(copy), false);
+  }
+  if (a === "wdel" && confirm("Remove this bottle from your Wishlist? This cannot be undone.")) {
+    store.wdel(draft.id); wishes = wishes.filter(x => x.id !== draft.id);
+    draft = null; editing = false; view = "wish"; render(); toast("Removed");
+  }
   if (a === "guideDone") { guideOn = false; render(); return; }
   if (a === "out") fb.signOut(auth);
   if (a === "back") { step = Math.max(0, step - 1); render(); }
@@ -1235,7 +1311,7 @@ function onClick(e) {
   if (a === "edit") { editing = true; step = 0; render(); }
   if (a === "cancel") {
     if (!confirm("Discard unsaved changes?")) return;
-    guideOn = false;
+    wishRemoveOnSave = null; guideOn = false;
     const o = notes.find(n => n.id === draft.id);
     if (o) openNote({ ...blank(), ...structuredClone(o) }, false); else { draft = null; editing = false; view = "coll"; render(); }
   }
@@ -1243,6 +1319,7 @@ function onClick(e) {
     if (!draft.name.trim()) { toast("Add a bottle name first"); step = 0; render(); return; }
     draft.updated = Date.now();
     store.save(draft, pending);
+    if (wishRemoveOnSave) { store.wdel(wishRemoveOnSave); wishes = wishes.filter(x => x.id !== wishRemoveOnSave); wishRemoveOnSave = null; }
     const copy = structuredClone(draft), i = notes.findIndex(n => n.id === draft.id);
     if (i < 0) notes.push(copy); else notes[i] = copy;
     toast("Saved"); guideOn = false; openNote(structuredClone(copy), false);
@@ -1286,8 +1363,9 @@ $("#root").addEventListener("change", onInput);
 
 function start() {
   view = "coll"; draft = null; editing = false;
-  $("#root").innerHTML = `<main class="page" id="page"></main><nav class="bar" aria-label="Main navigation">${[["coll", "Tastings"], ["learn", "Learn"], ["cmp", "Compare"], ["links", "Links"]].map(([v, l]) => `<button data-v="${v}">${l}</button>`).join("")}</nav><div class="ov" id="guideov" hidden></div>`;
+  $("#root").innerHTML = `<main class="page" id="page"></main><nav class="bar" aria-label="Main navigation">${[["coll", "Tastings"], ["wish", "Wishlist"], ["learn", "Learn"], ["cmp", "Compare"], ["links", "Links"]].map(([v, l]) => `<button data-v="${v}">${l}</button>`).join("")}</nav><div class="ov" id="guideov" hidden></div>`;
   render();
+  unsubW?.(); unsubW = store.wlisten(list => { wishes = list; if (view === "wish") render(); });
   unsub?.();
   unsub = store.listen(list => { notes = list; if (view === "coll") renderList(); else if (view === "cmp") render(); });
 }
@@ -1304,7 +1382,7 @@ else {
   }[c] || "Sign-in failed. Check your connection and try again.");
   fb.onAuthStateChanged(auth, u => {
     if (u) { start(); return; }
-    unsub?.(); unsub = null; notes = []; draft = null;
+    unsub?.(); unsub = null; unsubW?.(); unsubW = null; notes = []; wishes = []; draft = null;
     $("#root").innerHTML = `<form class="login" id="lf"><h1>Whisky Notes</h1><small class="ver">v${VERSION}</small>
       <label class="fld">Email<input id="em" type="email" autocomplete="username"></label>
       <label class="fld">Password<input id="pw" type="password" autocomplete="current-password"></label>
