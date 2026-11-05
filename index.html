@@ -1,10 +1,10 @@
 <!doctype html>
-<!-- Whisky Notes v3.35 -->
+<!-- Whisky Notes v3.36 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Whisky Notes v3.35</title>
+<title>Whisky Notes v3.36</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f1e6d2;--panel:#fbf6ea;--line:#dcc9aa;--ink:#3b2417;--mute:#5e4a37;--brown:#7a3d1c;--amber:#e3a03a;--cream:#f7eddb;--r:12px}
@@ -426,6 +426,7 @@ span.heart{display:inline-block;text-align:center;line-height:44px;pointer-event
 .map-region.rc0{fill:#e6d9bd}.map-region.rc1{fill:#dfe3c8}.map-region.rc2{fill:#ecd5c0}.map-region.rc3{fill:#d6dfd6}.map-region.rc4{fill:#e8d0d0}.map-region.rc5{fill:#dcd6e6}
 .map-label.sub{font-size:calc(10px + var(--fa,0pt));font-weight:400;font-style:italic;fill:#5a432b}
 
+.cmp-prof{display:block;font-style:italic;line-height:1.4}
 /* TEMP FONT TOOL START */
 #fsw{position:fixed;right:10px;bottom:calc(env(safe-area-inset-bottom,0px) + 74px);z-index:90;font:600 14px Figtree,system-ui,sans-serif}
 #fsw button{font:inherit;cursor:pointer}
@@ -631,7 +632,7 @@ if (LOCAL) {
 /* ---------- State and helpers ---------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const VERSION = "3.35";
+const VERSION = "3.36";
 let gTab = "cat", gSel = null, gDet = null, cA = "", cB = "";
 let notes = [], cat = "All", q = "", view = "coll", draft = null, pending = null, editing = false, step = 0;
 let photoCrop = null;
@@ -1278,6 +1279,7 @@ function cmpHtml(A, B) {
   };
   const water = n => ["Effect on aroma", "Effect on taste"].map(k => (n.tags?.[`water|${k}`] || []).length ? `${k}: ${(n.tags[`water|${k}`] || []).join(", ")}` : "").filter(Boolean).join(" · ") || "–";
   const rows = [
+    ["Flavour profile", n => flavourProfile(n) ? `<i class="cmp-prof">${esc(flavourProfile(n))}</i>` : "-"],
     ["Rating", n => n.rating ? stars(n.rating) + " " + n.rating + " / 5" : "–"],
     ["Category", n => esc(n.category)], ["Region", n => esc(n.region) || "–"], ["Style", n => esc(n.type) || "–"],
     ["Age", n => n.noAge ? "No age statement" : n.age ? n.age + " years" : "–"], ["ABV", n => n.abv ? esc(n.abv) + "%" : "–"],
